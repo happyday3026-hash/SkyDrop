@@ -285,11 +285,11 @@ body::before {
   <!-- ═══════ SECTION 1: 세계관 ═══════ -->
   <div class="section active" id="sec-world">
 
-    <!-- YouTube -->
-    <div style="padding:16px 16px 0;">
-      <div style="border:1px solid var(--border-warm);border-radius:4px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/p7_jn-TIoqI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:block;"></iframe>
-      </div>
+    <!-- BGM Bar -->
+    <div style="background:var(--bg-card);padding:7px 12px;border-bottom:1px solid var(--border-warm);display:flex;align-items:center;gap:10px">
+      <span style="font-size:11px;letter-spacing:.12em;color:var(--amber);white-space:nowrap">♪ BGM</span>
+      <span style="font-size:9.5px;color:var(--text-dim);font-style:italic;flex:1">투란의 밤</span>
+      <button onclick="openBGM()" style="background:var(--amber-dim);border:none;color:var(--bg-deep);font-family:'Noto Serif KR',serif;font-size:11px;font-weight:600;letter-spacing:.08em;padding:5px 14px;cursor:pointer;border-radius:2px;">▶ 재생</button>
     </div>
 
     <div class="hero fade-in">
@@ -628,6 +628,20 @@ body::before {
 
 </div>
 
+<!-- BGM Popup -->
+<div id="bgm-popup" style="display:none;position:fixed;bottom:80px;right:12px;z-index:9999;background:var(--bg-card);border:1px solid var(--amber-dim);border-radius:6px;width:260px;box-shadow:0 8px 32px rgba(0,0,0,.8)">
+  <div id="bgm-header" style="background:var(--amber-dim);padding:5px 10px;display:flex;justify-content:space-between;align-items:center;border-radius:5px 5px 0 0;cursor:grab;user-select:none">
+    <span style="font-size:11px;letter-spacing:.1em;color:var(--bg-deep);font-weight:600">♪ BGM</span>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button onclick="minimizeBGM()" title="최소화" style="background:none;border:none;color:var(--bg-deep);font-size:14px;cursor:pointer;padding:0 4px;line-height:1">—</button>
+      <button onclick="closeBGM()" title="닫기" style="background:none;border:none;color:var(--bg-deep);font-size:14px;cursor:pointer;padding:0 4px;line-height:1">✕</button>
+    </div>
+  </div>
+  <div id="bgm-body" style="padding:8px">
+    <div id="bgm-player"></div>
+  </div>
+</div>
+
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lb-close" onclick="closeLightbox()">✕</button>
@@ -657,6 +671,61 @@ function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
   document.body.style.overflow = '';
 }
+
+/* BGM */
+var bgmPlayer=null,bgmReady=false,bgmMinimized=false;
+function loadYTApi(){
+  if(window.YT&&window.YT.Player){initBGMPlayer();return;}
+  if(document.getElementById('yt-api-script'))return;
+  var s=document.createElement('script');
+  s.id='yt-api-script';
+  s.src='https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+}
+window.onYouTubeIframeAPIReady=function(){initBGMPlayer();};
+function initBGMPlayer(){
+  if(bgmPlayer)return;
+  bgmPlayer=new YT.Player('bgm-player',{
+    height:'140',width:'100%',
+    videoId:'p7_jn-TIoqI',
+    playerVars:{autoplay:1,controls:1,modestbranding:1,rel:0,fs:0},
+    events:{onReady:function(e){bgmReady=true;e.target.playVideo();}}
+  });
+}
+function openBGM(){
+  document.getElementById('bgm-popup').style.display='block';
+  setTimeout(function(){loadYTApi();},50);
+}
+function minimizeBGM(){
+  var body=document.getElementById('bgm-body');
+  var popup=document.getElementById('bgm-popup');
+  bgmMinimized=!bgmMinimized;
+  body.style.display=bgmMinimized?'none':'block';
+  popup.style.width=bgmMinimized?'140px':'260px';
+}
+function closeBGM(){
+  document.getElementById('bgm-popup').style.display='none';
+  if(bgmPlayer&&bgmReady)bgmPlayer.pauseVideo();
+}
+/* Drag */
+(function(){
+  var popup=document.getElementById('bgm-popup');
+  var header=document.getElementById('bgm-header');
+  if(!header)return;
+  var dragging=false,ox=0,oy=0;
+  header.addEventListener('mousedown',function(e){
+    dragging=true;ox=e.clientX-popup.getBoundingClientRect().left;oy=e.clientY-popup.getBoundingClientRect().top;
+    popup.style.right='auto';popup.style.bottom='auto';header.style.cursor='grabbing';
+  });
+  document.addEventListener('mousemove',function(e){if(!dragging)return;popup.style.left=(e.clientX-ox)+'px';popup.style.top=(e.clientY-oy)+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;if(header)header.style.cursor='grab';});
+  header.addEventListener('touchstart',function(e){
+    var t=e.touches[0];dragging=true;ox=t.clientX-popup.getBoundingClientRect().left;oy=t.clientY-popup.getBoundingClientRect().top;
+    popup.style.right='auto';popup.style.bottom='auto';
+  });
+  document.addEventListener('touchmove',function(e){if(!dragging)return;var t=e.touches[0];popup.style.left=(t.clientX-ox)+'px';popup.style.top=(t.clientY-oy)+'px';});
+  document.addEventListener('touchend',function(){dragging=false;});
+})();
 </script>
 </body>
 </html>

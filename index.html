@@ -8,21 +8,20 @@
 <style>
 :root {
   --bg-deep: #0a0806;
-  --bg-card: #15120e;
+  --bg-card: #14110d;
   --bg-warm: #1a1510;
   --amber: #d4913a;
   --amber-dim: #b8782e;
   --amber-glow: #e8a845;
   --fire: #c4501a;
   --fire-dim: #8b3311;
-  --bone: #e8dcc8;
-  --bone-dim: #b8a890;
   --sand: #c4b69a;
-  --text: #d4c8b4;
+  --text: #cdc0aa;
   --text-dim: #8a7e6c;
   --text-bright: #f0e8d8;
-  --border: #2a2318;
-  --border-warm: #3a2e1e;
+  --border: #251f16;
+  --border-warm: #382e1e;
+  --highlight: #e8a845;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
@@ -30,251 +29,178 @@ body {
   background: var(--bg-deep);
   color: var(--text);
   font-family: 'Noto Serif KR', serif;
+  font-size: 13.5px;
+  line-height: 2;
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
 }
 body::before {
   content: '';
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background:
-    radial-gradient(1px 1px at 10% 20%, rgba(232,168,69,0.4), transparent),
-    radial-gradient(1px 1px at 30% 70%, rgba(232,168,69,0.3), transparent),
-    radial-gradient(1px 1px at 50% 10%, rgba(232,168,69,0.5), transparent),
-    radial-gradient(1px 1px at 70% 40%, rgba(232,168,69,0.2), transparent),
-    radial-gradient(1px 1px at 90% 80%, rgba(232,168,69,0.4), transparent),
-    radial-gradient(1.5px 1.5px at 25% 45%, rgba(240,232,216,0.5), transparent),
-    radial-gradient(1.5px 1.5px at 75% 65%, rgba(240,232,216,0.4), transparent);
-  pointer-events: none;
-  z-index: 0;
+    radial-gradient(1px 1px at 10% 20%, rgba(232,168,69,0.35), transparent),
+    radial-gradient(1px 1px at 50% 10%, rgba(232,168,69,0.45), transparent),
+    radial-gradient(1px 1px at 90% 80%, rgba(232,168,69,0.35), transparent),
+    radial-gradient(1.5px 1.5px at 25% 45%, rgba(240,232,216,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 75% 65%, rgba(240,232,216,0.35), transparent);
+  pointer-events: none; z-index: 0;
   animation: twinkle 8s ease-in-out infinite alternate;
 }
-@keyframes twinkle { 0%{opacity:.6} 50%{opacity:.9} 100%{opacity:.5} }
+@keyframes twinkle { 0%{opacity:.5} 50%{opacity:.85} 100%{opacity:.45} }
 
-.app { max-width: 480px; margin: 0 auto; position: relative; z-index: 1; padding-bottom: 70px; }
+/* ── Highlight ── */
+.hl { color: var(--highlight); font-weight: 600; }
+
+/* ── Layout ── */
+.app { max-width: 460px; margin: 0 auto; position: relative; z-index: 1; padding-bottom: 70px; }
 .section { display: none; }
 .section.active { display: block; }
 
 /* ── Hero ── */
-.hero { text-align: center; padding: 24px 16px 40px; position: relative; }
-.hero::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:60%; height:1px; background:linear-gradient(90deg,transparent,var(--amber-dim),transparent); }
+.hero { text-align: center; padding: 20px 18px 36px; position: relative; }
+.hero::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:50%; height:1px; background:linear-gradient(90deg,transparent,var(--amber-dim),transparent); }
 
-.main-visual { position: relative; margin-bottom: 28px; padding: 10px; }
-.main-visual .frame-outer { position:absolute; inset:0; border:1px solid var(--amber-dim); opacity:0.4; pointer-events:none; }
-.main-visual .frame-inner { position:absolute; inset:6px; border:1px solid var(--amber-dim); opacity:0.2; pointer-events:none; }
-.main-visual .corner { position:absolute; width:16px; height:16px; z-index:5; pointer-events:none; }
-.main-visual .corner::before, .main-visual .corner::after { content:''; position:absolute; background:var(--amber); opacity:0.6; }
+.main-visual { position: relative; margin-bottom: 24px; padding: 10px; }
+.main-visual .frame-outer { position:absolute; inset:0; border:1px solid var(--amber-dim); opacity:0.35; pointer-events:none; }
+.main-visual .frame-inner { position:absolute; inset:6px; border:1px solid var(--amber-dim); opacity:0.15; pointer-events:none; }
+.main-visual .corner { position:absolute; width:14px; height:14px; z-index:5; pointer-events:none; }
+.main-visual .corner::before, .main-visual .corner::after { content:''; position:absolute; background:var(--amber); opacity:0.5; }
 .main-visual .corner-tl { top:3px; left:3px; }
-.main-visual .corner-tl::before { top:0; left:0; width:16px; height:2px; }
-.main-visual .corner-tl::after { top:0; left:0; width:2px; height:16px; }
+.main-visual .corner-tl::before { top:0; left:0; width:14px; height:2px; }
+.main-visual .corner-tl::after { top:0; left:0; width:2px; height:14px; }
 .main-visual .corner-tr { top:3px; right:3px; }
-.main-visual .corner-tr::before { top:0; right:0; width:16px; height:2px; }
-.main-visual .corner-tr::after { top:0; right:0; width:2px; height:16px; }
+.main-visual .corner-tr::before { top:0; right:0; width:14px; height:2px; }
+.main-visual .corner-tr::after { top:0; right:0; width:2px; height:14px; }
 .main-visual .corner-bl { bottom:3px; left:3px; }
-.main-visual .corner-bl::before { bottom:0; left:0; width:16px; height:2px; }
-.main-visual .corner-bl::after { bottom:0; left:0; width:2px; height:16px; }
+.main-visual .corner-bl::before { bottom:0; left:0; width:14px; height:2px; }
+.main-visual .corner-bl::after { bottom:0; left:0; width:2px; height:14px; }
 .main-visual .corner-br { bottom:3px; right:3px; }
-.main-visual .corner-br::before { bottom:0; right:0; width:16px; height:2px; }
-.main-visual .corner-br::after { bottom:0; right:0; width:2px; height:16px; }
-.main-visual .diamond { position:absolute; width:8px; height:8px; background:var(--amber); transform:rotate(45deg); opacity:0.4; z-index:5; pointer-events:none; }
-.main-visual .diamond-top { top:-4px; left:50%; margin-left:-4px; }
-.main-visual .diamond-bottom { bottom:-4px; left:50%; margin-left:-4px; }
-.main-visual .diamond-left { left:-4px; top:50%; margin-top:-4px; }
-.main-visual .diamond-right { right:-4px; top:50%; margin-top:-4px; }
+.main-visual .corner-br::before { bottom:0; right:0; width:14px; height:2px; }
+.main-visual .corner-br::after { bottom:0; right:0; width:2px; height:14px; }
+.main-visual .diamond { position:absolute; width:7px; height:7px; background:var(--amber); transform:rotate(45deg); opacity:0.35; z-index:5; pointer-events:none; }
+.main-visual .diamond-top { top:-3.5px; left:50%; margin-left:-3.5px; }
+.main-visual .diamond-bottom { bottom:-3.5px; left:50%; margin-left:-3.5px; }
+.main-visual .diamond-left { left:-3.5px; top:50%; margin-top:-3.5px; }
+.main-visual .diamond-right { right:-3.5px; top:50%; margin-top:-3.5px; }
 .main-visual .visual-img { width:100%; aspect-ratio:3/4; position:relative; overflow:hidden; }
 .main-visual .visual-img img { width:100%; height:100%; object-fit:cover; }
-.main-visual .visual-img::after { content:''; position:absolute; inset:0; background:linear-gradient(transparent 50%, rgba(10,8,6,0.7) 80%, rgba(10,8,6,0.95)); z-index:1; }
-.main-visual .visual-overlay { position:absolute; bottom:20px; left:0; right:0; text-align:center; z-index:2; }
-.main-visual .visual-overlay .vo-rune { font-size:12px; letter-spacing:10px; color:var(--amber-dim); opacity:0.6; margin-bottom:12px; }
-.main-visual .visual-overlay .vo-title { font-family:'Cinzel',serif; font-size:11px; letter-spacing:6px; color:var(--amber); text-transform:uppercase; margin-bottom:14px; }
-.main-visual .visual-overlay .vo-main { font-size:24px; font-weight:700; color:var(--text-bright); line-height:1.6; text-shadow:0 2px 20px rgba(0,0,0,0.8); }
+.main-visual .visual-img::after { content:''; position:absolute; inset:0; background:linear-gradient(transparent 45%, rgba(10,8,6,0.65) 75%, rgba(10,8,6,0.95)); z-index:1; }
+.visual-overlay { position:absolute; bottom:24px; left:0; right:0; text-align:center; z-index:2; }
+.vo-rune { font-size:11px; letter-spacing:10px; color:var(--amber-dim); opacity:0.5; margin-bottom:10px; }
+.vo-title { font-family:'Cinzel',serif; font-size:10px; letter-spacing:7px; color:var(--amber); text-transform:uppercase; margin-bottom:12px; }
+.vo-main { font-size:22px; font-weight:700; color:var(--text-bright); line-height:1.7; text-shadow:0 2px 20px rgba(0,0,0,0.8); }
 
-.hero-desc { font-size:14px; color:var(--sand); line-height:1.8; font-weight:400; font-style:italic; }
-.hero-divider { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:24px; color:var(--amber-dim); font-size:10px; opacity:0.6; }
-.hero-divider span { font-size:6px; }
-.hero-divider::before, .hero-divider::after { content:''; width:40px; height:1px; background:var(--amber-dim); }
+.hero-desc { font-size:14px; color:var(--sand); line-height:2; font-weight:300; font-style:italic; margin-top:4px; }
+.hero-divider { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:20px; color:var(--amber-dim); font-size:10px; opacity:0.5; }
+.hero-divider span { font-size:5px; }
+.hero-divider::before, .hero-divider::after { content:''; width:36px; height:1px; background:var(--amber-dim); }
 
 /* ── Shared ── */
-.info-section { padding: 20px 16px; }
-.section-header { text-align:center; margin-bottom:24px; }
-.section-header h2 { font-size:18px; color:var(--amber); font-weight:600; letter-spacing:4px; margin-bottom:8px; }
+.info-section { padding: 24px 18px; }
+.section-header { text-align:center; margin-bottom:28px; }
+.section-header h2 { font-size:16px; color:var(--amber); font-weight:600; letter-spacing:5px; margin-bottom:10px; }
 .section-header .line { display:flex; align-items:center; justify-content:center; gap:6px; }
-.section-header .line::before, .section-header .line::after { content:''; width:30px; height:1px; background:var(--amber-dim); opacity:0.4; }
-.section-header .line span { color:var(--amber-dim); font-size:8px; opacity:0.6; }
+.section-header .line::before, .section-header .line::after { content:''; width:28px; height:1px; background:var(--amber-dim); opacity:0.35; }
+.section-header .line span { color:var(--amber-dim); font-size:7px; opacity:0.5; }
 
-.info-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:20px; margin-bottom:16px; position:relative; overflow:hidden; transition:border-color 0.3s; }
-.info-card:hover { border-color:var(--border-warm); }
-.info-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(180deg,var(--amber),var(--fire-dim)); opacity:0.6; }
-.info-card h3 { font-size:15px; color:var(--amber-glow); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-.info-card h3 .icon { font-size:16px; opacity:0.8; }
-.info-card p { font-size:13px; line-height:1.9; color:var(--text); font-weight:300; }
-.info-card .detail { font-size:12px; color:var(--text-dim); margin-top:8px; padding-top:8px; border-top:1px solid var(--border); line-height:1.8; }
-
-/* ── Map ── */
-.map-section { padding: 20px 16px; }
-.map-container { border:1px solid var(--border-warm); border-radius:4px; overflow:hidden; box-shadow:0 4px 30px rgba(212,145,58,0.08); }
-.map-container img { width:100%; display:block; }
-.map-label { text-align:center; padding:10px; font-size:11px; color:var(--text-dim); letter-spacing:3px; background:var(--bg-card); border-top:1px solid var(--border); }
-
-/* ── Character Cards ── */
-.char-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:20px; transition:border-color 0.3s; }
-.char-card:hover { border-color:var(--amber-dim); }
-.char-img { width:100%; aspect-ratio:3/4; background:var(--bg-warm); position:relative; overflow:hidden; }
-.char-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s; }
-.char-card:hover .char-img img { transform:scale(1.03); }
-.char-img::after { content:''; position:absolute; inset:0; background:linear-gradient(transparent 60%, rgba(10,8,6,0.9)); z-index:1; }
-.char-img .char-name-overlay { position:absolute; bottom:16px; left:20px; z-index:2; }
-.char-img .char-name-overlay h3 { font-size:22px; color:var(--text-bright); font-weight:700; text-shadow:0 2px 15px rgba(0,0,0,0.8); }
-.char-img .char-name-overlay .char-role { font-size:12px; color:var(--amber); letter-spacing:2px; margin-top:4px; }
-.char-body { padding:20px; }
-.char-quote { font-size:14px; color:var(--amber-glow); font-style:italic; line-height:1.7; padding:12px 0; border-bottom:1px solid var(--border); margin-bottom:14px; }
-.char-desc { font-size:13px; line-height:1.9; color:var(--text); font-weight:300; }
-.char-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
-.char-tags span { font-size:11px; color:var(--text-dim); border:1px solid var(--border); padding:3px 10px; border-radius:2px; letter-spacing:1px; }
-
-/* ── NPC Cards ── */
-.npc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.npc-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:14px; transition:border-color 0.3s; }
-.npc-card:hover { border-color:var(--border-warm); }
-.npc-card .npc-name { font-size:14px; color:var(--amber); font-weight:600; margin-bottom:4px; }
-.npc-card .npc-role { font-size:11px; color:var(--text-dim); letter-spacing:1px; margin-bottom:8px; }
-.npc-card .npc-desc { font-size:12px; color:var(--text); line-height:1.7; font-weight:300; }
-
-/* ── Rival Cards with Image ── */
-.rival-card { background:var(--bg-card); border:1px solid var(--border); border-left:2px solid var(--fire-dim); border-radius:4px; overflow:hidden; margin-bottom:14px; transition:border-color 0.3s; }
-.rival-card:hover { border-color:var(--amber-dim); }
-.rival-row { display:flex; gap:0; }
-.rival-img { width:100px; min-height:130px; flex-shrink:0; overflow:hidden; }
-.rival-img img { width:100%; height:100%; object-fit:cover; }
-.rival-body { padding:14px; flex:1; }
-.rival-body .npc-name { font-size:14px; color:var(--amber); font-weight:600; margin-bottom:4px; }
-.rival-body .npc-role { font-size:11px; color:var(--text-dim); letter-spacing:1px; margin-bottom:8px; }
-.rival-body .npc-desc { font-size:12px; color:var(--text); line-height:1.7; font-weight:300; }
-
-/* ── Route Cards ── */
-.route-section { padding: 20px 16px 20px; }
-.route-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:20px; margin-bottom:14px; transition:all 0.3s; position:relative; overflow:hidden; }
-.route-card:hover { border-color:var(--amber-dim); transform:translateY(-2px); box-shadow:0 8px 30px rgba(212,145,58,0.1); }
-.route-card .route-num { font-family:'Cinzel',serif; font-size:11px; color:var(--amber-dim); letter-spacing:4px; margin-bottom:8px; }
-.route-card .route-title { font-size:16px; color:var(--text-bright); font-weight:600; margin-bottom:8px; }
-.route-card .route-desc { font-size:13px; color:var(--text-dim); line-height:1.7; font-weight:300; }
-
-/* ── Guide List ── */
-.guide-section { padding:10px 16px 20px; }
-.guide-list { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:18px 20px; }
-.guide-item { display:flex; align-items:baseline; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; color:var(--text); font-weight:300; line-height:1.6; }
-.guide-item:last-child { border-bottom:none; }
-.guide-item .gi-icon { font-size:14px; flex-shrink:0; }
-.guide-item .gi-label { color:var(--amber); font-weight:400; white-space:nowrap; }
-
-/* ── Command Section ── */
-.cmd-section { padding:10px 16px 40px; }
-.cmd-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:baseline; gap:12px; transition:border-color 0.3s; }
-.cmd-card:hover { border-color:var(--border-warm); }
-.cmd-name { font-size:13px; color:var(--amber); font-weight:600; font-family:'Cinzel','Noto Serif KR',serif; white-space:nowrap; }
-.cmd-desc { font-size:12px; color:var(--text-dim); line-height:1.6; font-weight:300; }
-
-/* ── Bottom Nav ── */
-.bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; z-index:100; background:var(--bg-deep); border-top:1px solid var(--border-warm); display:flex; box-shadow:0 -4px 30px rgba(0,0,0,0.5); }
-.nav-btn { flex:1; padding:14px 0; text-align:center; font-size:12px; letter-spacing:2px; color:var(--text-dim); background:transparent; border:none; cursor:pointer; transition:all 0.3s; font-family:'Noto Serif KR',serif; position:relative; }
-.nav-btn.active { color:var(--amber); }
-.nav-btn.active::after { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:40px; height:2px; background:var(--amber); }
-.nav-btn:not(:last-child) { border-right:1px solid var(--border); }
-
-@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-.fade-in { animation:fadeUp 0.6s ease-out forwards; }
-.delay-1 { animation-delay:0.1s; opacity:0; }
-.delay-2 { animation-delay:0.2s; opacity:0; }
-.delay-3 { animation-delay:0.3s; opacity:0; }
-
-/* ── Lightbox ── */
-.lightbox {
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:200;
-  background:rgba(0,0,0,0.92);
-  align-items:center;
-  justify-content:center;
-  cursor:zoom-out;
-  padding:20px;
-  animation: lbFade 0.2s ease;
-}
-.lightbox.active { display:flex; }
-@keyframes lbFade { from{opacity:0} to{opacity:1} }
-.lightbox img {
-  max-width:100%;
-  max-height:90vh;
-  object-fit:contain;
-  border-radius:4px;
-  box-shadow:0 0 40px rgba(212,145,58,0.15);
-}
-.lightbox .lb-close {
-  position:absolute;
-  top:16px;
-  right:16px;
-  width:36px;
-  height:36px;
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:50%;
-  color:var(--text);
-  font-size:18px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* ── Zoomable images ── */
-.zoomable { cursor:zoom-in; }
-
-/* ── Floating Music Player ── */
-.music-float {
-  position: fixed;
-  bottom: 70px;
-  right: 12px;
-  z-index: 99;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-}
-.music-toggle {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+/* ── Info Cards ── */
+.info-card {
   background: var(--bg-card);
-  border: 1px solid var(--amber-dim);
-  color: var(--amber);
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  transition: all 0.3s;
-}
-.music-toggle:hover {
-  background: var(--amber-dim);
-  color: var(--bg-deep);
-}
-.music-panel {
-  display: none;
-  background: var(--bg-card);
-  border: 1px solid var(--border-warm);
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px 22px;
+  margin-bottom: 18px;
+  position: relative;
   overflow: hidden;
 }
-.music-panel.open {
-  display: block;
-  animation: fadeUp 0.3s ease-out;
-}
+.info-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(180deg,var(--amber),var(--fire-dim)); opacity:0.5; }
+.info-card h3 { font-size:14px; color:var(--amber-glow); margin-bottom:14px; display:flex; align-items:center; gap:8px; line-height:1.4; }
+.info-card h3 .icon { font-size:15px; opacity:0.75; }
+.info-card p { font-size:13.5px; line-height:2.1; color:var(--text); font-weight:300; }
+.info-card .detail { font-size:12.5px; color:var(--text-dim); margin-top:12px; padding-top:12px; border-top:1px solid var(--border); line-height:2; }
 
-::-webkit-scrollbar { width:4px; }
+/* ── Map ── */
+.map-section { padding: 24px 18px; }
+.map-container { border:1px solid var(--border-warm); border-radius:4px; overflow:hidden; box-shadow:0 4px 24px rgba(212,145,58,0.06); }
+.map-container img { width:100%; display:block; cursor:zoom-in; }
+.map-label { text-align:center; padding:14px 12px; font-size:12px; color:var(--text-dim); letter-spacing:2px; background:var(--bg-card); border-top:1px solid var(--border); line-height:2; }
+
+/* ── Character Cards ── */
+.char-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:24px; }
+.char-img { width:100%; aspect-ratio:3/4; position:relative; overflow:hidden; }
+.char-img img { width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+.char-img::after { content:''; position:absolute; inset:0; background:linear-gradient(transparent 55%, rgba(10,8,6,0.9)); z-index:1; }
+.char-name-overlay { position:absolute; bottom:18px; left:22px; z-index:2; }
+.char-name-overlay h3 { font-size:21px; color:var(--text-bright); font-weight:700; text-shadow:0 2px 12px rgba(0,0,0,0.8); line-height:1.3; }
+.char-name-overlay .char-role { font-family:'Cinzel',serif; font-size:11px; color:var(--amber); letter-spacing:3px; margin-top:5px; }
+.char-body { padding: 24px 22px; }
+.char-quote { font-size:14px; color:var(--amber-glow); font-style:italic; line-height:1.9; padding:14px 0; border-bottom:1px solid var(--border); margin-bottom:18px; }
+.char-desc { font-size:13.5px; line-height:2.2; color:var(--text); font-weight:300; }
+.char-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:18px; }
+.char-tags span { font-size:11px; color:var(--text-dim); border:1px solid var(--border); padding:4px 12px; border-radius:2px; letter-spacing:1px; }
+
+/* ── NPC Cards ── */
+.npc-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.npc-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:16px; }
+.npc-card .npc-name { font-size:14px; color:var(--amber); font-weight:600; margin-bottom:5px; }
+.npc-card .npc-role { font-size:11px; color:var(--text-dim); letter-spacing:1px; margin-bottom:10px; }
+.npc-card .npc-desc { font-size:12.5px; color:var(--text); line-height:1.9; font-weight:300; }
+
+/* ── Rival Cards ── */
+.rival-card { background:var(--bg-card); border:1px solid var(--border); border-left:2px solid var(--fire-dim); border-radius:4px; overflow:hidden; margin-bottom:14px; }
+.rival-row { display:flex; gap:0; }
+.rival-img { width:100px; min-height:130px; flex-shrink:0; overflow:hidden; }
+.rival-img img { width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+.rival-body { padding:16px; flex:1; }
+.rival-body .npc-name { font-size:14px; color:var(--amber); font-weight:600; margin-bottom:5px; }
+.rival-body .npc-role { font-size:11px; color:var(--text-dim); letter-spacing:1px; margin-bottom:10px; }
+.rival-body .npc-desc { font-size:12.5px; color:var(--text); line-height:1.9; font-weight:300; }
+
+/* ── Route Cards ── */
+.route-section { padding: 24px 18px 20px; }
+.route-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:22px; margin-bottom:16px; transition:all 0.3s; position:relative; overflow:hidden; }
+.route-card:hover { border-color:var(--amber-dim); }
+.route-card .route-num { font-family:'Cinzel',serif; font-size:10px; color:var(--amber-dim); letter-spacing:5px; margin-bottom:10px; }
+.route-card .route-title { font-size:16px; color:var(--text-bright); font-weight:600; margin-bottom:10px; line-height:1.5; }
+.route-card .route-desc { font-size:13px; color:var(--text-dim); line-height:2; font-weight:300; }
+
+/* ── Guide ── */
+.guide-section { padding:14px 18px 24px; }
+.guide-list { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:20px 22px; }
+.guide-item { display:flex; align-items:baseline; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px; color:var(--text); font-weight:300; line-height:1.8; }
+.guide-item:last-child { border-bottom:none; }
+.guide-item .gi-icon { font-size:14px; flex-shrink:0; }
+.guide-item .gi-label { color:var(--amber); font-weight:500; white-space:nowrap; min-width:48px; }
+
+/* ── Commands ── */
+.cmd-section { padding:14px 18px 20px; }
+.cmd-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:16px 20px; margin-bottom:10px; display:flex; align-items:baseline; gap:14px; }
+.cmd-name { font-size:13px; color:var(--amber); font-weight:600; font-family:'Cinzel','Noto Serif KR',serif; white-space:nowrap; }
+.cmd-desc { font-size:12.5px; color:var(--text-dim); line-height:1.8; font-weight:300; }
+
+/* ── Bottom Nav ── */
+.bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:460px; z-index:100; background:var(--bg-deep); border-top:1px solid var(--border-warm); display:flex; box-shadow:0 -4px 24px rgba(0,0,0,0.5); }
+.nav-btn { flex:1; padding:14px 0; text-align:center; font-size:12px; letter-spacing:3px; color:var(--text-dim); background:transparent; border:none; cursor:pointer; transition:all 0.3s; font-family:'Noto Serif KR',serif; position:relative; }
+.nav-btn.active { color:var(--amber); }
+.nav-btn.active::after { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:36px; height:2px; background:var(--amber); }
+.nav-btn:not(:last-child) { border-right:1px solid var(--border); }
+
+/* ── Lightbox ── */
+.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:9000; align-items:center; justify-content:center; cursor:zoom-out; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:95%; max-height:90vh; object-fit:contain; }
+.lb-close { position:absolute; top:16px; right:16px; background:none; border:1px solid rgba(255,255,255,0.2); border-radius:50%; width:36px; height:36px; color:var(--text); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+
+/* ── Animations ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.fade-in { animation:fadeUp 0.6s ease-out forwards; }
+.delay-1 { animation-delay:0.15s; opacity:0; }
+.delay-2 { animation-delay:0.25s; opacity:0; }
+.delay-3 { animation-delay:0.35s; opacity:0; }
+
+::-webkit-scrollbar { width:3px; }
 ::-webkit-scrollbar-track { background:var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background:var(--border-warm); border-radius:2px; }
 </style>
@@ -285,13 +211,14 @@ body::before {
   <!-- ═══════ SECTION 1: 세계관 ═══════ -->
   <div class="section active" id="sec-world">
 
-    <!-- BGM Bar -->
-    <div style="background:var(--bg-card);padding:7px 12px;border-bottom:1px solid var(--border-warm);display:flex;align-items:center;gap:10px">
-      <span style="font-size:11px;letter-spacing:.12em;color:var(--amber);white-space:nowrap">♪ BGM</span>
-      <span style="font-size:9.5px;color:var(--text-dim);font-style:italic;flex:1">투란의 밤</span>
-      <button onclick="openBGM()" style="background:var(--amber-dim);border:none;color:var(--bg-deep);font-family:'Noto Serif KR',serif;font-size:11px;font-weight:600;letter-spacing:.08em;padding:5px 14px;cursor:pointer;border-radius:2px;">▶ 재생</button>
+    <!-- BGM -->
+    <div style="background:var(--bg-card);padding:8px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
+      <span style="font-size:11px;letter-spacing:.12em;color:var(--amber);white-space:nowrap">♪</span>
+      <span style="font-size:10px;color:var(--text-dim);font-style:italic;flex:1">투란의 밤</span>
+      <button onclick="openBGM()" style="background:var(--amber-dim);border:none;color:var(--bg-deep);font-family:'Noto Serif KR',serif;font-size:10.5px;font-weight:600;padding:5px 14px;cursor:pointer;border-radius:2px;">▶ 재생</button>
     </div>
 
+    <!-- Hero -->
     <div class="hero fade-in">
       <div class="main-visual">
         <div class="frame-outer"></div>
@@ -317,35 +244,38 @@ body::before {
       <div class="hero-divider"><span>◆</span></div>
     </div>
 
+    <!-- Intro -->
     <div class="info-section fade-in delay-1">
       <div class="info-card">
         <p>
           눈 떠보니 초원 한가운데였습니다.<br><br>
-          핸드폰 없고, 와이파이 없고, 편의점 없고.<br>
-          대신 창 든 남자 셋이 당신을 내려다보고 있습니다.<br><br>
-          문명이 멸망하고 300년쯤 지난 세계에서<br>
-          사냥과 교역으로 겨우겨우 버티는 유목민들.<br><br>
-          오늘은 짝의식이었습니다.<br>
-          만 열아홉을 넘긴 자들이 짝의 손을 잡고<br>
-          불 앞에 서는 밤. 부족에서 가장 신성한 밤.<br><br>
-          짝들이 손을 맞잡으려는 바로 그 순간,<br>
+          핸드폰도 없고, 와이파이도 없고, 편의점도 없습니다.<br>
+          대신 <span class="hl">창 든 남자 셋</span>이 당신을 내려다보고 있습니다.<br><br>
+          문명이 멸망하고 300년쯤 지난 세계.<br>
+          사냥과 교역으로 겨우겨우 버티는 유목민들이 사는 곳입니다.<br><br>
+          오늘은 <span class="hl">짝의식</span>이었습니다.<br>
+          만 열아홉을 넘긴 자들이 짝의 손을 잡고 불 앞에 서는 밤.<br>
+          부족에서 가장 신성한 밤이었죠.<br><br>
+          그 짝들이 손을 맞잡으려는 바로 그 순간 —<br>
           하늘에서 이상한 옷차림의 인간이 뚝 떨어졌습니다.<br><br>
-          <em style="color:var(--amber);">..당신입니다.</em>
+          <em style="color:var(--amber); font-size:14.5px;">..당신입니다.</em>
         </p>
       </div>
     </div>
 
+    <!-- Map -->
     <div class="map-section fade-in delay-2">
       <div class="section-header">
         <h2>⊹ 투란의 대지 ⊹</h2>
         <div class="line"><span>◆</span></div>
       </div>
       <div class="map-container">
-        <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%A7%80%EB%8F%84.webp" alt="투란의 대지" class="zoomable" onclick="openLightbox(this.src)">
-        <div class="map-label">계절마다 캠프를 옮깁니다<br>봄→초원 · 여름→수원지 · 가을→유적 · 겨울→협곡</div>
+        <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%A7%80%EB%8F%84.webp" alt="투란의 대지" onclick="openLightbox(this.src)">
+        <div class="map-label">계절마다 캠프를 옮깁니다<br>봄 → 초원 · 여름 → 수원지 · 가을 → 유적 · 겨울 → 협곡</div>
       </div>
     </div>
 
+    <!-- Rules -->
     <div class="info-section fade-in delay-3">
       <div class="section-header">
         <h2>알아두세요</h2>
@@ -353,20 +283,20 @@ body::before {
       </div>
       <div class="info-card">
         <h3><span class="icon">✋</span>손잡기 = 구애</h3>
-        <p>부족 앞에서 의도적으로 손을 잡으면, 그건 구애 선언입니다. 돌이킬 수 없어요.</p>
+        <p>부족 앞에서 의도적으로 손을 잡으면, 그건 <span class="hl">구애 선언</span>입니다.<br>돌이킬 수 없어요.</p>
         <div class="detail">⚠ 실수로 닿은 건 괜찮아요. 근데 부족민이 보기엔... 구별이 안 될 수도 있습니다.</div>
       </div>
       <div class="info-card">
         <h3><span class="icon">💍</span>짝의식</h3>
-        <p>일 년에 단 한 번, 봄. 짝과 손잡고 불 앞에 서면 공식 선언. 선언 후 첫날 밤.</p>
-        <div class="detail">기존 짝: 타르↔세나, 아쉬↔이렌. 나기는 짝이 없다. 거부권은 있습니다.</div>
+        <p>일 년에 단 한 번, 봄에 열립니다.<br>짝과 손잡고 불 앞에 서면 공식 선언이고, 그 뒤에는 <span class="hl">첫날 밤</span>이 이어집니다.</p>
+        <div class="detail">기존 짝: 타르 ↔ 세나, 아쉬 ↔ 이렌. 나기는 짝이 없다. 거부권은 있습니다.</div>
       </div>
     </div>
   </div>
 
   <!-- ═══════ SECTION 2: 캐릭터 ═══════ -->
   <div class="section" id="sec-char">
-    <div class="info-section" style="padding-top:30px;">
+    <div class="info-section" style="padding-top:28px;">
       <div class="section-header">
         <h2>⊹ 캐릭터 ⊹</h2>
         <div class="line"><span>◆</span></div>
@@ -375,7 +305,7 @@ body::before {
       <!-- 타르 -->
       <div class="char-card">
         <div class="char-img">
-          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%ED%83%80%EB%A5%B41.jpg" alt="타르" class="zoomable" onclick="openLightbox(this.src)">
+          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%ED%83%80%EB%A5%B41.jpg" alt="타르" onclick="openLightbox(this.src)">
           <div class="char-name-overlay">
             <h3>타르 Tar</h3>
             <div class="char-role">사냥꾼 · 24세</div>
@@ -384,12 +314,11 @@ body::before {
         <div class="char-body">
           <div class="char-quote">"...하. 왜 내가 이걸... 알았다고."</div>
           <p class="char-desc">
-            만성 피로의 사냥꾼. 한숨이 반, 투덜거림이 반.<br>
-            귀찮다는 말을 달고 살지만, 결국 다 해준다.<br><br>
-            위험하면 제일 먼저 움직이고,<br>
-            그러고는 "어쩌다 보니 내가 가까웠어" 하고 넘긴다.<br><br>
-            당신한테 관심 없는 줄 아는데,<br>
-            행동이 전부 당신 쪽이라는 걸 본인만 모른다.
+            만성 피로에 시달리는 사냥꾼. 한숨이 반이고 투덜거림이 나머지 반입니다.<br>
+            귀찮다는 말을 달고 살지만 — 결국엔 다 해줍니다.<br><br>
+            위험한 일이 생기면 <span class="hl">제일 먼저 움직이고</span>, 그러고는 "어쩌다 보니 내가 가까웠어" 하고 넘깁니다.<br><br>
+            당신한테 관심 없는 줄 압니다. 본인만요.<br>
+            행동이 전부 당신 쪽이라는 걸, 이 사람만 모릅니다.
           </p>
           <div class="char-tags">
             <span>만성피로</span>
@@ -403,7 +332,7 @@ body::before {
       <!-- 나기 -->
       <div class="char-card">
         <div class="char-img">
-          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EB%82%98%EA%B8%B01.jpg" alt="나기" class="zoomable" onclick="openLightbox(this.src)">
+          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EB%82%98%EA%B8%B01.jpg" alt="나기" onclick="openLightbox(this.src)">
           <div class="char-name-overlay">
             <h3>나기 Nagi</h3>
             <div class="char-role">장사꾼 · 22세</div>
@@ -412,12 +341,11 @@ body::before {
         <div class="char-body">
           <div class="char-quote">"내가 해냈거든?! ...야, 왜 웃어. 웃으면 나 진짜 화난다."</div>
           <p class="char-desc">
-            시끄럽고, 허세 넘치고, 자신만만한 막내.<br>
-            교역장에선 협상의 귀재. 뒤에서는 자기가 제일 쓸모없다고 생각한다.<br><br>
-            장신구를 주렁주렁 달고 다니는 건<br>
-            매일 자기한테 "나 해냈어"라고 증명하는 것.<br><br>
-            허세가 벗겨지면 극도로 작아진다.<br>
-            진짜 인정받고 싶은 건, 가까운 사람한테.
+            시끄럽고, 허세 넘치고, 자신만만한 막내입니다.<br>
+            교역장에선 협상의 귀재라 불리지만 — 뒤에서는 자기가 <span class="hl">제일 쓸모없다</span>고 생각합니다.<br><br>
+            장신구를 주렁주렁 달고 다니는 건, 매일 자기한테 "나 해냈어"라고 증명하는 것입니다.<br><br>
+            허세가 벗겨지면 극도로 작아집니다.<br>
+            진짜 인정받고 싶은 건 — 가까운 사람한테.
           </p>
           <div class="char-tags">
             <span>허세</span>
@@ -431,7 +359,7 @@ body::before {
       <!-- 아쉬 -->
       <div class="char-card">
         <div class="char-img">
-          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%95%84%EC%89%AC.jpg" alt="아쉬" class="zoomable" onclick="openLightbox(this.src)">
+          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%95%84%EC%89%AC.jpg" alt="아쉬" onclick="openLightbox(this.src)">
           <div class="char-name-overlay">
             <h3>아쉬 Ash</h3>
             <div class="char-role">불지기 · 30세</div>
@@ -440,13 +368,12 @@ body::before {
         <div class="char-body">
           <div class="char-quote">"그래~? 하암... 나중에~"</div>
           <p class="char-desc">
-            부족의 불을 지키는 남자. 나른하고, 능글맞고, 게으른 아저씨.<br>
-            누구한테나 가볍고 친근하지만, 속을 아는 사람은 없다.<br><br>
-            숨 쉬듯 플러팅하고, 나기 놀리는 게 취미.<br>
-            의식을 주관할 때만 완전히 다른 사람이 된다.<br><br>
-            부족에서 서른이면 어른 취급을 한다.<br>
-            당신한테 끌리는 이유는,<br>
-            유일하게 자기한테 아무것도 기대하지 않는 사람이니까.
+            부족의 불을 지키는 남자입니다. 나른하고, 능글맞고, 게으른 아저씨.<br>
+            누구한테나 가볍고 친근하지만 — 속을 아는 사람은 없습니다.<br><br>
+            숨 쉬듯 플러팅하고, 나기 놀리는 게 유일한 취미입니다.<br>
+            의식을 주관할 때만 <span class="hl">완전히 다른 사람</span>이 됩니다.<br><br>
+            부족에서 서른이면 어른 취급을 합니다.<br>
+            당신한테 끌리는 이유는, 유일하게 자기한테 아무것도 기대하지 않는 사람이니까요.
           </p>
           <div class="char-tags">
             <span>능글</span>
@@ -468,70 +395,70 @@ body::before {
         <div class="npc-card">
           <div class="npc-name">쿠엔</div>
           <div class="npc-role">여 · 족장 · 54세</div>
-          <div class="npc-desc">과묵하고 냉정하고 공정한 투란의 수장. 아쉬를 어릴 때부터 키웠다.</div>
+          <div class="npc-desc">과묵하고, 냉정하고, 공정한 투란의 수장입니다. 아쉬를 어릴 때부터 키웠습니다.</div>
         </div>
         <div class="npc-card">
           <div class="npc-name">하얀</div>
           <div class="npc-role">여 · 이야기꾼 · 74세</div>
-          <div class="npc-desc">부족에서 가장 늙은 전승자. 옛이야기 떡밥을 투하한다.</div>
+          <div class="npc-desc">부족에서 가장 늙은 전승자. 옛이야기 떡밥을 슬쩍 투하합니다.</div>
         </div>
         <div class="npc-card">
           <div class="npc-name">올리</div>
           <div class="npc-role">남 · 꼬마 · 10세</div>
-          <div class="npc-desc">이빠진 웃음, 큰 눈. 당신한테 호기심 폭발. 질문이 안 끝난다.</div>
+          <div class="npc-desc">이빠진 웃음에 큰 눈. 당신한테 호기심이 폭발합니다. 질문이 안 끝나요.</div>
         </div>
         <div class="npc-card">
           <div class="npc-name">도르</div>
           <div class="npc-role">남 · 전사 · 32세</div>
-          <div class="npc-desc">삭발에 턱흉터. 경계파. 당신을 못마땅해한다. 타르의 사냥 파트너.</div>
+          <div class="npc-desc">삭발에 턱흉터. 경계파입니다. 당신을 못마땅해합니다. 타르의 사냥 파트너.</div>
         </div>
       </div>
 
-      <div class="section-header" style="margin-top:24px;">
+      <div class="section-header" style="margin-top:28px;">
         <h2>라이벌</h2>
         <div class="line"><span>◆</span></div>
       </div>
 
       <div class="rival-card">
         <div class="rival-row">
-          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%84%B8%EB%82%981.jpg" alt="세나" class="zoomable" onclick="event.stopPropagation();openLightbox(this.src)"></div>
+          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%84%B8%EB%82%981.jpg" alt="세나" onclick="event.stopPropagation();openLightbox(this.src)"></div>
           <div class="rival-body">
             <div class="npc-name">세나</div>
             <div class="npc-role">여 · 여전사 · 22세</div>
-            <div class="npc-desc">타르의 사냥 파트너이자 짝의식 상대. 직선적이고 거침없다. "내 자리"에 대한 자부심이 강하다.</div>
+            <div class="npc-desc">타르의 사냥 파트너이자 짝의식 상대입니다. 직선적이고 거침없으며, "내 자리"에 대한 자부심이 강합니다.</div>
           </div>
         </div>
       </div>
 
       <div class="rival-card">
         <div class="rival-row">
-          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EB%A6%AC%EC%95%841.jpg" alt="리아" class="zoomable" onclick="event.stopPropagation();openLightbox(this.src)"></div>
+          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EB%A6%AC%EC%95%841.jpg" alt="리아" onclick="event.stopPropagation();openLightbox(this.src)"></div>
           <div class="rival-body">
             <div class="npc-name">리아</div>
             <div class="npc-role">여 · 교역 · 21세</div>
-            <div class="npc-desc">나기보다 한 수 위. 여우같은 웃음. 나기를 들었다 놨다 한다.</div>
+            <div class="npc-desc">나기보다 한 수 위입니다. 여우같은 웃음으로 나기를 들었다 놨다 합니다.</div>
           </div>
         </div>
       </div>
 
       <div class="rival-card">
         <div class="rival-row">
-          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%9D%B4%EB%A0%8C1.jpg" alt="이렌" class="zoomable" onclick="event.stopPropagation();openLightbox(this.src)"></div>
+          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%9D%B4%EB%A0%8C1.jpg" alt="이렌" onclick="event.stopPropagation();openLightbox(this.src)"></div>
           <div class="rival-body">
             <div class="npc-name">이렌</div>
             <div class="npc-role">여 · 카자르 족장의 딸 · 24세</div>
-            <div class="npc-desc">아쉬의 정략 짝. 은발, 붉은 눈. 차갑고 품위 있지만, "정해진 것"에 자존심이 있다.</div>
+            <div class="npc-desc">아쉬의 정략 짝입니다. 은발에 붉은 눈. 차갑고 품위 있지만, "정해진 것"에 대한 자존심이 있습니다.</div>
           </div>
         </div>
       </div>
 
       <div class="rival-card">
         <div class="rival-row">
-          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%A0%9C%EC%9D%B4.jpg" alt="제이" class="zoomable" onclick="event.stopPropagation();openLightbox(this.src)"></div>
+          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%A0%9C%EC%9D%B4.jpg" alt="제이" onclick="event.stopPropagation();openLightbox(this.src)"></div>
           <div class="rival-body">
             <div class="npc-name">제이</div>
             <div class="npc-role">남 · 카자르 전사 · 23세</div>
-            <div class="npc-desc">건방진 웃음. 나기의 교역 라이벌이자 당신한테 관심 있는 남자. 나기가 당신을 뒤로 당긴다.</div>
+            <div class="npc-desc">건방진 웃음의 소유자. 카자르 부족의 전사이자, 당신한테 관심이 있는 남자입니다.</div>
           </div>
         </div>
       </div>
@@ -540,7 +467,7 @@ body::before {
 
   <!-- ═══════ SECTION 3: 시작 ═══════ -->
   <div class="section" id="sec-start">
-    <div class="route-section" style="padding-top:30px;">
+    <div class="route-section" style="padding-top:28px;">
       <div class="section-header">
         <h2>⊹ 시작 설정 ⊹</h2>
         <div class="line"><span>◆</span></div>
@@ -549,17 +476,17 @@ body::before {
       <div class="route-card">
         <div class="route-num">ROUTE 01</div>
         <div class="route-title">짝의식에 떨어졌습니다</div>
-        <div class="route-desc">일 년에 단 한 번뿐인 의식을 엎었다.<br>족장이 묻는다. "이름을 대라. 대답에 따라 살려둄지 정하겠다."</div>
+        <div class="route-desc">일 년에 단 한 번뿐인 의식을 엎었습니다.<br>족장이 묻습니다. "이름을 대라. 대답에 따라 살려둘지 정하겠다."</div>
       </div>
 
       <div class="route-card">
         <div class="route-num">ROUTE 02</div>
         <div class="route-title">신부로 떨어졌습니다</div>
-        <div class="route-desc">신이 내려준 신부라 생각하고 부족이 무릎을 꿇었다.<br>그리고 족장이 묻는다. "이름이 뭐냐. 신부."</div>
+        <div class="route-desc">신이 내려준 신부라 생각하고, 부족이 무릎을 꿇었습니다.<br>그리고 족장이 묻습니다. "이름이 뭐냐. 신부."</div>
       </div>
     </div>
 
-    <!-- 부족 규칙 가이드 -->
+    <!-- Guide -->
     <div class="guide-section">
       <div class="section-header">
         <h2>⊹ 부족 생활 가이드 ⊹</h2>
@@ -567,62 +494,40 @@ body::before {
       </div>
       <div class="guide-list">
         <div class="guide-item"><span class="gi-icon">🤝</span><span class="gi-label">손잡기</span> 부족 앞에서 잡으면 구애 선언</div>
-        <div class="guide-item"><span class="gi-icon">🔥</span><span class="gi-label">모닥불</span> 캠프 중앙. 꺼지면 안 됨</div>
+        <div class="guide-item"><span class="gi-icon">🔥</span><span class="gi-label">모닥불</span> 캠프의 심장. 꺼지면 안 됩니다</div>
         <div class="guide-item"><span class="gi-icon">🦴</span><span class="gi-label">사냥감</span> 첫 부위는 공동 몫. 혼자 먹으면 추방</div>
-        <div class="guide-item"><span class="gi-icon">👁️</span><span class="gi-label">이방인</span> 족장이 이름 부를 때까지 부족민 아님</div>
+        <div class="guide-item"><span class="gi-icon">👁️</span><span class="gi-label">이방인</span> 족장이 이름 부를 때까지 부족민이 아닙니다</div>
         <div class="guide-item"><span class="gi-icon">💍</span><span class="gi-label">짝의식</span> 일 년에 한 번 봄에, 손잡고 불 앞에 서면 끝</div>
-        <div class="guide-item"><span class="gi-icon">🏕</span><span class="gi-label">이동</span> 계절마다 캠프를 옮김</div>
+        <div class="guide-item"><span class="gi-icon">🏕</span><span class="gi-label">이동</span> 계절마다 캠프를 옮깁니다</div>
         <div class="guide-item"><span class="gi-icon">🤰</span><span class="gi-label">임신</span> 부족 최대의 축복. 피임은 약초로 가능</div>
       </div>
     </div>
 
-    <!-- 명령어 -->
+    <!-- Commands -->
     <div class="cmd-section">
       <div class="section-header">
         <h2>⊹ 명령어 ⊹</h2>
         <div class="line"><span>◆</span></div>
       </div>
-
-      <div class="cmd-card">
-        <span class="cmd-name">!이벤트</span>
-        <span class="cmd-desc">랜덤 가챠! 사냥, 교역, 짐승 습격, 라이벌 견제, 옛 문명 유물 발견 등.</span>
-      </div>
-      <div class="cmd-card">
-        <span class="cmd-name">!모닥불</span>
-        <span class="cmd-desc">현대판 독자 반응. 당신의 이야기를 읽은 익명 커뮤의 실시간 댓글.</span>
-      </div>
-      <div class="cmd-card">
-        <span class="cmd-name">!장터</span>
-        <span class="cmd-desc">바자르 교역(상점) 목록. 번호로 구매 후 선물 및 사용 가능.</span>
-      </div>
-      <div class="cmd-card">
-        <span class="cmd-name">!가계부</span>
-        <span class="cmd-desc">각 캐릭터들이 사용한 가계부 기록. 예) !가계부 나기</span>
-      </div>
-      <div class="cmd-card">
-        <span class="cmd-name">!요약</span>
-        <span class="cmd-desc">최근 30턴 서사 정리. (AI 기억력 높이기)</span>
-      </div>
-      <div class="cmd-card">
-        <span class="cmd-name">!점검</span>
-        <span class="cmd-desc">AI 전체 오류 점검하기.</span>
-      </div>
-      <div class="cmd-card">
-        <span class="cmd-name">!상태끔/킴</span>
-        <span class="cmd-desc">하단 상태창 끄기/켜기.</span>
-      </div>
+      <div class="cmd-card"><span class="cmd-name">!이벤트</span><span class="cmd-desc">랜덤 가챠! 사냥, 교역, 짐승 습격, 라이벌 견제, 옛 문명 유물 발견 등.</span></div>
+      <div class="cmd-card"><span class="cmd-name">!모닥불</span><span class="cmd-desc">현대판 독자 반응. 당신의 이야기를 읽은 익명 커뮤의 실시간 댓글.</span></div>
+      <div class="cmd-card"><span class="cmd-name">!장터</span><span class="cmd-desc">바자르 교역(상점) 목록. 번호로 구매 후 선물 및 사용 가능.</span></div>
+      <div class="cmd-card"><span class="cmd-name">!가계부</span><span class="cmd-desc">각 캐릭터들이 사용한 가계부 기록. 예) !가계부 나기</span></div>
+      <div class="cmd-card"><span class="cmd-name">!요약</span><span class="cmd-desc">최근 30턴 서사 정리. (AI 기억력 높이기)</span></div>
+      <div class="cmd-card"><span class="cmd-name">!점검</span><span class="cmd-desc">AI 전체 오류 점검하기.</span></div>
+      <div class="cmd-card"><span class="cmd-name">!상태끔/킴</span><span class="cmd-desc">하단 상태창 끄기/켜기.</span></div>
     </div>
 
-    <!-- 채팅방 바로가기 -->
-    <div style="padding:10px 16px 20px;">
-      <a href="https://share.crack.wrtn.ai/ubcdyhc" target="_blank" style="display:block;text-align:center;padding:16px;background:linear-gradient(135deg,var(--amber-dim),var(--fire));border-radius:4px;color:var(--text-bright);font-size:15px;font-weight:600;letter-spacing:2px;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 20px rgba(212,145,58,0.2);">
+    <!-- CTA -->
+    <div style="padding:12px 18px 20px;">
+      <a href="https://share.crack.wrtn.ai/ubcdyhc" target="_blank" style="display:block;text-align:center;padding:17px;background:linear-gradient(135deg,var(--amber-dim),var(--fire));border-radius:4px;color:var(--text-bright);font-size:14.5px;font-weight:600;letter-spacing:3px;text-decoration:none;box-shadow:0 4px 20px rgba(212,145,58,0.15);">
         ⊹ 초원에 떨어지기 ⊹
       </a>
     </div>
 
-    <!-- 크레딧 -->
-    <div style="text-align:center;padding:20px 16px 40px;">
-      <p style="font-size:11px;color:var(--text-dim);letter-spacing:2px;">@현생오프</p>
+    <!-- Credit -->
+    <div style="text-align:center;padding:20px 18px 40px;">
+      <p style="font-size:10.5px;color:var(--text-dim);letter-spacing:3px;">@현생오프</p>
     </div>
   </div>
 
@@ -678,8 +583,7 @@ function loadYTApi(){
   if(window.YT&&window.YT.Player){initBGMPlayer();return;}
   if(document.getElementById('yt-api-script'))return;
   var s=document.createElement('script');
-  s.id='yt-api-script';
-  s.src='https://www.youtube.com/iframe_api';
+  s.id='yt-api-script';s.src='https://www.youtube.com/iframe_api';
   document.head.appendChild(s);
 }
 window.onYouTubeIframeAPIReady=function(){initBGMPlayer();};
@@ -707,7 +611,6 @@ function closeBGM(){
   document.getElementById('bgm-popup').style.display='none';
   if(bgmPlayer&&bgmReady)bgmPlayer.pauseVideo();
 }
-/* Drag */
 (function(){
   var popup=document.getElementById('bgm-popup');
   var header=document.getElementById('bgm-header');

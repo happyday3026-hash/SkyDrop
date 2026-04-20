@@ -158,6 +158,178 @@ body::before {
 .rival-body .npc-role { font-size:11px; color:var(--text-dim); letter-spacing:1px; margin-bottom:10px; }
 .rival-body .npc-desc { font-size:12.5px; color:var(--text); line-height:1.9; font-weight:300; }
 
+/* ── Persona Builder ── */
+.persona-builder {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 22px 20px;
+}
+.pb-group { margin-bottom: 22px; }
+.pb-group:last-of-type { margin-bottom: 16px; }
+.pb-label {
+  display: block;
+  font-size: 13px;
+  color: var(--amber);
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.pb-input {
+  width: 100%;
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 10px 12px;
+  color: var(--text-bright);
+  font-size: 13px;
+  font-family: 'Noto Serif KR', serif;
+  outline: none;
+  transition: all 0.2s;
+}
+.pb-input:focus { border-color: var(--amber-dim); }
+.pb-input::placeholder { color: var(--text-dim); font-size: 12px; }
+.pb-textarea { resize: vertical; min-height: 70px; line-height: 1.7; }
+.pb-hint { font-size: 10.5px; color: var(--text-dim); margin-top: 6px; letter-spacing: 0.5px; }
+
+.pb-radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.pb-radio-col { flex-direction: column; gap: 6px; }
+.pb-radio {
+  flex: 1;
+  min-width: 80px;
+  cursor: pointer;
+}
+.pb-radio-col .pb-radio { flex: unset; }
+.pb-radio input { display: none; }
+.pb-radio span {
+  display: block;
+  padding: 9px 12px;
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 12.5px;
+  color: var(--text);
+  text-align: center;
+  transition: all 0.2s;
+}
+.pb-radio-col .pb-radio span { text-align: left; }
+.pb-radio input:checked + span {
+  background: rgba(212,145,58,0.12);
+  border-color: var(--amber-dim);
+  color: var(--amber-glow);
+}
+.pb-radio:hover span { border-color: var(--amber-dim); }
+
+.pb-check-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.pb-check {
+  cursor: pointer;
+}
+.pb-check input { display: none; }
+.pb-check span {
+  display: inline-block;
+  padding: 7px 12px;
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.pb-check input:checked + span {
+  background: rgba(212,145,58,0.15);
+  border-color: var(--amber);
+  color: var(--amber-glow);
+}
+
+.pb-generate {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--amber-dim), var(--fire));
+  border: none;
+  border-radius: 4px;
+  color: var(--text-bright);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  cursor: pointer;
+  font-family: 'Noto Serif KR', serif;
+  margin-top: 10px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(212,145,58,0.15);
+}
+.pb-generate:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,145,58,0.25); }
+.pb-generate:active { transform: scale(0.98); }
+
+.pb-result {
+  margin-top: 20px;
+  padding: 18px;
+  background: var(--bg-warm);
+  border: 1px solid var(--amber-dim);
+  border-radius: 4px;
+}
+.pb-result-label {
+  font-size: 12px;
+  color: var(--amber);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.pb-result-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 12.5px;
+  color: var(--text-bright);
+  line-height: 2;
+  white-space: pre-wrap;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.pb-copy {
+  width: 100%;
+  padding: 11px;
+  background: var(--amber-dim);
+  border: none;
+  border-radius: 3px;
+  color: var(--bg-deep);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  font-family: 'Noto Serif KR', serif;
+  transition: all 0.2s;
+}
+.pb-copy:hover { background: var(--amber); }
+.pb-copy.copied { background: var(--amber-glow); color: var(--bg-deep); }
+
+/* ── Persona Cards (legacy) ── */
+.persona-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--amber);
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+}
+.persona-card:hover { border-color: var(--amber-dim); background: var(--bg-warm); }
+.persona-card:active { transform: scale(0.98); }
+.persona-card.copied { border-color: var(--amber-glow); background: rgba(212,145,58,0.1); }
+.persona-card.copied::after {
+  content: '✓ 복사됨!';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 11px;
+  color: var(--amber-glow);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.persona-title { font-size: 14.5px; color: var(--amber); font-weight: 600; margin-bottom: 8px; letter-spacing: 1px; }
+.persona-desc { font-size: 12.5px; color: var(--text); line-height: 1.9; font-weight: 300; }
+
 /* ── Route Cards ── */
 .route-section { padding: 24px 18px 20px; }
 .route-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:22px; margin-bottom:16px; transition:all 0.3s; position:relative; overflow:hidden; }
@@ -482,6 +654,112 @@ body::before {
       </div>
     </div>
 
+    <!-- 페르소나 -->
+    <div class="info-section">
+      <div class="section-header">
+        <h2>⊹ 페르소나 만들기 ⊹</h2>
+        <div class="line"><span>◆</span></div>
+        <p style="font-size:12px;color:var(--text-dim);margin-top:10px;line-height:1.8;">선택하고 입력하면 나만의 페르소나가 완성돼요! ♡</p>
+      </div>
+
+      <div class="persona-builder">
+        <!-- 이름 -->
+        <div class="pb-group">
+          <label class="pb-label">✧ 이름</label>
+          <input type="text" id="pb-name" class="pb-input" placeholder="자유롭게 입력">
+        </div>
+
+        <!-- 나이 -->
+        <div class="pb-group">
+          <label class="pb-label">✧ 나이</label>
+          <input type="number" id="pb-age" class="pb-input" placeholder="19 이상 추천" min="15" max="99" value="21">
+          <p class="pb-hint">19세 미만은 짝의식/성인의식 참여 불가, 스킨십 제한</p>
+        </div>
+
+        <!-- 성별 -->
+        <div class="pb-group">
+          <label class="pb-label">✧ 성별</label>
+          <div class="pb-radio-group">
+            <label class="pb-radio"><input type="radio" name="gender" value="여"><span>여</span></label>
+            <label class="pb-radio"><input type="radio" name="gender" value="남"><span>남</span></label>
+            <label class="pb-radio"><input type="radio" name="gender" value="자유 설정" checked><span>자유</span></label>
+          </div>
+        </div>
+
+        <!-- 출신 -->
+        <div class="pb-group">
+          <label class="pb-label">✧ 출신</label>
+          <div class="pb-radio-group pb-radio-col">
+            <label class="pb-radio"><input type="radio" name="origin" value="현대 한국에서 떨어짐. 부족어 전혀 못함. 현대 상식은 있지만 생존 스킬은 제로" checked><span>🌸 현대 한국</span></label>
+            <label class="pb-radio"><input type="radio" name="origin" value="다른 유목 부족 출신. 부족어 가능. 투란 규칙은 모름. 떠나온 이유는 본인만 안다"><span>🏹 다른 부족</span></label>
+            <label class="pb-radio"><input type="radio" name="origin" value="카자르 부족 출신. 이렌과 먼 친척 관계. 품위 있는 말투. 정치적 이유로 투란에 옴"><span>👑 카자르 귀족</span></label>
+            <label class="pb-radio"><input type="radio" name="origin" value="기억 상실. 자신이 누구인지 모른다. 손목에 이상한 문양. 단편적 기억만 가끔 떠오름"><span>❓ 기억 없음</span></label>
+          </div>
+        </div>
+
+        <!-- 종족 -->
+        <div class="pb-group">
+          <label class="pb-label">✧ 종족</label>
+          <div class="pb-radio-group pb-radio-col">
+            <label class="pb-radio"><input type="radio" name="species" value="인간" checked><span>👤 인간</span></label>
+            <label class="pb-radio"><input type="radio" name="species" value="늑대 수인 (은색 귀+꼬리). 감정이 귀와 꼬리에 다 드러남. 기쁘면 꼬리 흔들리고 긴장하면 귀 납작. 후각 극강, 사람의 감정 냄새를 맡는다"><span>🐺 늑대 수인</span></label>
+            <label class="pb-radio"><input type="radio" name="species" value="고양이 수인 (검은 귀+꼬리). 도도하고 경계심 많음. 밤눈이 밝고 발소리가 없다"><span>🐱 고양이 수인</span></label>
+            <label class="pb-radio"><input type="radio" name="species" value="여우 수인 (붉은 귀+꼬리). 둔갑 능력. 꼬리가 감정 상태를 표시한다"><span>🦊 여우 수인</span></label>
+            <label class="pb-radio"><input type="radio" name="species" value="토끼 수인 (하얀 귀+꼬리). 귀여운 외모, 점프력 뛰어남. 약해 보이지만 민첩"><span>🐰 토끼 수인</span></label>
+            <label class="pb-radio"><input type="radio" name="species" value="매 수인 (등에 날개). 하늘을 날 수 있다. 시력 극강, 정찰병 자격"><span>🦅 매 수인</span></label>
+            <label class="pb-radio"><input type="radio" name="species" value="용족 (이마에 작은 뿔). 피 속에 용의 힘이 있어 불을 다룰 수 있다. 전설 속 존재"><span>🐉 용족</span></label>
+            <label class="pb-radio"><input type="radio" name="species" value="구미호 (아홉 꼬리). 둔갑 능력. 영물 취급"><span>🍥 구미호</span></label>
+          </div>
+        </div>
+
+        <!-- 능력/특기 (다중선택) -->
+        <div class="pb-group">
+          <label class="pb-label">✧ 능력/특기 <span style="font-size:10px;color:var(--text-dim);">(여러 개 선택 가능)</span></label>
+          <div class="pb-check-group">
+            <label class="pb-check"><input type="checkbox" name="skill" value="의학/약초 지식. 아쉬의 제자로 활약 가능"><span>⚕️ 의학/약초</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="뛰어난 요리 실력. 현대 레시피로 부족민 충격"><span>🍳 요리</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="무술/격투 실력. 타르와 사냥에서 실력 겨룸"><span>💪 전투</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="노래/음악 재능. 모닥불 앞에서 부족을 홀림"><span>🎤 노래</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="상상력 풍부. 이야기 만들기 특기. 하얀 할머니 후계자"><span>📖 이야기꾼</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="고고학/역사 지식. 유적에 대한 이해가 깊다"><span>🏛 유적 해독</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="교역/흥정 재능. 나기와 협상의 라이벌"><span>💰 교역</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="손재주 좋음. 장신구/도구 제작 가능"><span>🪡 손재주</span></label>
+          </div>
+        </div>
+
+        <!-- 성격 -->
+        <div class="pb-group">
+          <label class="pb-label">✧ 성격 <span style="font-size:10px;color:var(--text-dim);">(여러 개 선택 가능)</span></label>
+          <div class="pb-check-group">
+            <label class="pb-check"><input type="checkbox" name="personality" value="당찬 성격"><span>😤 당찬</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="순수한 성격"><span>🌷 순수</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="차가운 성격"><span>❄️ 차가운</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="능글맞은 성격"><span>😏 능글</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="소심한 성격"><span>🫣 소심</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="허당 기질"><span>🤭 허당</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="똑똑하고 영리함"><span>🧠 영리</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="호기심 폭발"><span>👀 호기심</span></label>
+          </div>
+        </div>
+
+        <!-- 자유 입력 -->
+        <div class="pb-group">
+          <label class="pb-label">✧ 추가 설정 <span style="font-size:10px;color:var(--text-dim);">(자유 입력, 선택)</span></label>
+          <textarea id="pb-extra" class="pb-input pb-textarea" placeholder="외모, 말버릇, 과거 등 자유롭게..."></textarea>
+        </div>
+
+        <!-- 생성 버튼 -->
+        <button class="pb-generate" onclick="generatePersona()">⊹ 페르소나 생성 ⊹</button>
+
+        <!-- 결과 -->
+        <div id="pb-result" class="pb-result" style="display:none;">
+          <div class="pb-result-label">✨ 생성된 페르소나</div>
+          <pre id="pb-result-text" class="pb-result-text"></pre>
+          <button class="pb-copy" onclick="copyGenerated()">📋 복사하기</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Guide -->
     <div class="guide-section">
       <div class="section-header">
@@ -500,16 +778,26 @@ body::before {
     </div>
 
     <!-- 계절행사 -->
-    <div class="guide-section">
+    <div class="info-section">
       <div class="section-header">
         <h2>⊹ 계절 행사 ⊹</h2>
         <div class="line"><span>◆</span></div>
       </div>
-      <div class="guide-list">
-        <div class="guide-item"><span class="gi-icon">🌸</span><span class="gi-label">봄</span> 짝의식 · 약초 채집 · 초원 탐험</div>
-        <div class="guide-item"><span class="gi-icon">☀️</span><span class="gi-label">여름</span> 대사냥 · 수원지 물놀이 · 유적 탐사</div>
-        <div class="guide-item"><span class="gi-icon">🍂</span><span class="gi-label">가을</span> 바자르 교역 · 카자르 방문 · 요리 대회</div>
-        <div class="guide-item"><span class="gi-icon">❄️</span><span class="gi-label">겨울</span> 불의 밤 · 월동 준비 · 별자리 관측</div>
+      <div class="info-card">
+        <h3><span class="icon">🌸</span>봄 · 짝의식</h3>
+        <p>만 열아홉을 넘긴 자들이 짝의 손을 잡고 불 앞에 서는 밤.<br>부족에서 가장 신성한 밤입니다. 약초 채집, 초원 탐험도 함께해요.</p>
+      </div>
+      <div class="info-card">
+        <h3><span class="icon">🦌</span>여름 · 대사냥</h3>
+        <p>부족 전체가 며칠간 초원을 대이동하며 <span class="hl">거대 변이동물</span>을 쫓는 시즌이에요.<br>사냥 실력으로 서열이 결정되고, 잡은 사냥감은 부족 축제로 이어집니다.<br>타르가 빛나는 계절이에요.</p>
+      </div>
+      <div class="info-card">
+        <h3><span class="icon">🏛</span>가을 · 카자르 방문</h3>
+        <p>이웃 부족 카자르와의 대규모 교역이 열려요.<br>나기와 바자르 교역을 가거나, 아쉬 따라 이렌을 만나러 가거나 — <span class="hl">제이가 접근하면 나기 반응</span>을 보는 재미도 있답니다.<br>다른 부족 문화도 체험해보세요!</p>
+      </div>
+      <div class="info-card">
+        <h3><span class="icon">🔥</span>겨울 · 불의 밤</h3>
+        <p>겨울 가장 긴 밤에 부족 전체가 모닥불 앞에 모이는 아쉬 주관 의식이에요.<br>한 해 동안 감사한 것, 버리고 싶은 것을 말하며 <span class="hl">평소 못 했던 말, 숨겨둔 감정</span>을 털어놓는 시간이랍니다.<br>과거 이야기가 나올 수도 있어요...</p>
       </div>
     </div>
 
@@ -520,7 +808,7 @@ body::before {
         <div class="line"><span>◆</span></div>
       </div>
       <div class="cmd-card"><span class="cmd-name">!이벤트</span><span class="cmd-desc">랜덤 가챠! 사냥, 교역, 짐승 습격, 라이벌 견제, 옛 문명 유물 발견 등.</span></div>
-      <div class="cmd-card"><span class="cmd-name">!모닥불</span><span class="cmd-desc">현대판 독자 반응. 당신의 이야기를 읽은 익명 커뮤의 실시간 댓글.</span></div>
+      <div class="cmd-card"><span class="cmd-name">!모닥불</span><span class="cmd-desc">현대판 투란 익명 커뮤. 당신의 이야기를 부족민이 목격한 소문으로 풀어줍니다. (🔞포함)</span></div>
       <div class="cmd-card"><span class="cmd-name">!장터</span><span class="cmd-desc">바자르 교역(상점) 목록. 번호로 구매 후 선물 및 사용 가능.</span></div>
       <div class="cmd-card"><span class="cmd-name">!가계부</span><span class="cmd-desc">각 캐릭터들이 사용한 가계부 기록. 예) !가계부 나기</span></div>
       <div class="cmd-card"><span class="cmd-name">!요약</span><span class="cmd-desc">최근 30턴 서사 정리. (AI 기억력 높이기)</span></div>
@@ -569,6 +857,95 @@ body::before {
 </nav>
 
 <script>
+function generatePersona() {
+  var name = document.getElementById('pb-name').value.trim() || '[자유 설정]';
+  var age = document.getElementById('pb-age').value || '21';
+  var gender = document.querySelector('input[name="gender"]:checked').value;
+  var origin = document.querySelector('input[name="origin"]:checked').value;
+  var species = document.querySelector('input[name="species"]:checked').value;
+  var skills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(function(c){return c.value;});
+  var personalities = Array.from(document.querySelectorAll('input[name="personality"]:checked')).map(function(c){return c.value;});
+  var extra = document.getElementById('pb-extra').value.trim();
+
+  var result = '이름: ' + name + '\n';
+  result += '나이: ' + age + '세\n';
+  result += '성별: ' + gender + '\n';
+
+  if (species !== '인간') {
+    result += '종족: ' + species + '\n';
+  }
+
+  result += '출신: ' + origin + '\n';
+
+  if (personalities.length > 0) {
+    result += '성격: ' + personalities.join(', ') + '\n';
+  }
+
+  if (skills.length > 0) {
+    result += '특기: ' + skills.join(' / ') + '\n';
+  }
+
+  if (extra) {
+    result += '추가: ' + extra + '\n';
+  }
+
+  if (parseInt(age) < 19) {
+    result += '\n※ 19세 미만: 짝의식/성인의식 참여 불가. 스킨십은 손잡기/포옹까지.';
+  }
+
+  document.getElementById('pb-result-text').textContent = result;
+  document.getElementById('pb-result').style.display = 'block';
+
+  // 결과 영역으로 스크롤
+  setTimeout(function() {
+    document.getElementById('pb-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+function copyGenerated() {
+  var text = document.getElementById('pb-result-text').textContent;
+  var btn = document.querySelector('.pb-copy');
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = '✓ 복사됨!';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent = '📋 복사하기';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ 복사됨!';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent = '📋 복사하기';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function copyPersona(el) {
+  var text = el.getAttribute('data-persona');
+  navigator.clipboard.writeText(text).then(function() {
+    el.classList.add('copied');
+    setTimeout(function(){ el.classList.remove('copied'); }, 2000);
+  }).catch(function() {
+    // Fallback
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    el.classList.add('copied');
+    setTimeout(function(){ el.classList.remove('copied'); }, 2000);
+  });
+}
+
 function showSection(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');

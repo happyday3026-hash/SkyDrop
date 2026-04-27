@@ -167,6 +167,7 @@
     color: #2a1f15;
     font-weight: 500;
     transition: all 0.2s;
+    min-width: 0;
   }
   
   .field-input:focus {
@@ -192,6 +193,7 @@
     white-space: nowrap;
     font-family: 'Gaegu', cursive;
     font-weight: 700;
+    flex-shrink: 0;
   }
   
   .roll-btn:hover {
@@ -258,6 +260,24 @@
     font-size: 12px;
     opacity: 0.7;
   }
+  
+  /* 작은 폰 대응 */
+  @media (max-width: 380px) {
+    .container {
+      padding: 28px 20px;
+    }
+    .title {
+      font-size: 26px;
+    }
+    .field-input {
+      font-size: 13px;
+      padding: 7px 10px;
+    }
+    .roll-btn {
+      padding: 7px 10px;
+      font-size: 13px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -294,6 +314,14 @@
       </div>
     </div>
     
+    <div class="field">
+      <div class="field-label">종족</div>
+      <div class="field-input-row">
+        <input type="text" class="field-input" id="race" placeholder="인간·수인·변이체 등">
+        <button class="roll-btn" data-roll="race">🎲</button>
+      </div>
+    </div>
+    
     <hr class="divider">
     
     <div class="field">
@@ -309,6 +337,14 @@
       <div class="field-input-row">
         <input type="text" class="field-input highlight" id="mark" placeholder="문양이 새겨진 곳">
         <button class="roll-btn" data-roll="mark">🎲</button>
+      </div>
+    </div>
+    
+    <div class="field">
+      <div class="field-label">능력</div>
+      <div class="field-input-row">
+        <input type="text" class="field-input highlight" id="ability" placeholder="능력 (각성도)">
+        <button class="roll-btn" data-roll="ability">🎲</button>
       </div>
     </div>
     
@@ -345,6 +381,15 @@
     
     나이: ['22세', '23세', '24세', '25세', '26세', '27세', '28세', '29세', '30세', '31세'],
     
+    종족: [
+      '인간', '인간', '인간',
+      '수인 (늑대)', '수인 (여우)', '수인 (까마귀)', '수인 (검은표범)', '수인 (사슴)',
+      '변이체 (마법 부작용)',
+      '혼혈 (인간+수인)',
+      '이계 생존자 (대멸망 전 기억)',
+      '잿빛 정령 (희귀)'
+    ],
+    
     머리: ['검은 단발', '긴 흑발', '갈색 단발', '갈색 긴머리', '은발 단발', '백발 긴머리', '붉은 단발', '금발 긴머리', '잿빛 단발', '검은 포니테일'],
     눈: ['갈색 눈', '청회색 눈', '녹안', '흑안', '호박색 눈', '회안', '진한 갈색 눈', '연갈색 눈'],
     체형: ['평범한 키', '작고 마른 체형', '키 크고 마름', '평범한 체형', '약간 마른 편', '단단한 체형'],
@@ -355,6 +400,23 @@
       '왼쪽 어깨 뒤', '명치 위', '오른쪽 갈비뼈 옆',
       '왼쪽 손등'
     ],
+    
+    능력: [
+      '🔥 화염 마법',
+      '💧 치유 (희귀)',
+      '⚔️ 검술',
+      '🌿 자연 친화',
+      '👁️ 예언 (운명 부담)',
+      '🌑 어둠 마법 (금기)',
+      '🔮 정신 감응',
+      '🛡️ 방어 결계',
+      '🦊 수인 본능 (강화 감각)',
+      '💀 봉인술 (47년 전 비밀)',
+      '✨ 무능력 (가장 안전)',
+      '🩸 흑마법 (절대 금기)'
+    ],
+    
+    각성도: ['미발현', '잠재', '일부 발현', '불완전 각성', '간헐적'],
     
     배경: [
       '깨어보니 잿빛지대 한복판',
@@ -402,11 +464,17 @@
       case 'age':
         value = pick(data.나이);
         break;
+      case 'race':
+        value = pick(data.종족);
+        break;
       case 'appearance':
         value = `${pick(data.머리)}·${pick(data.눈)}·${pick(data.체형)}`;
         break;
       case 'mark':
         value = pick(data.문양위치);
+        break;
+      case 'ability':
+        value = `${pick(data.능력)} (${pick(data.각성도)})`;
         break;
       case 'background':
         value = pick(data.배경);
@@ -421,8 +489,10 @@
   function rollAll() {
     rollField('name');
     rollField('age');
+    rollField('race');
     rollField('appearance');
     rollField('mark');
+    rollField('ability');
     rollField('background');
     rollField('personality');
   }
@@ -430,8 +500,10 @@
   function copyText() {
     const name = document.getElementById('name').value || '???';
     const age = document.getElementById('age').value || '???';
+    const race = document.getElementById('race').value || '???';
     const appearance = document.getElementById('appearance').value || '???';
     const mark = document.getElementById('mark').value || '???';
+    const ability = document.getElementById('ability').value || '???';
     const background = document.getElementById('background').value || '???';
     const personality = document.getElementById('personality').value || '???';
     
@@ -441,8 +513,10 @@
 이름: ${name}
 나이: ${age}
 성별: ${gender}
+종족: ${race}
 외형: ${appearance}
 문양 위치: ${mark}
+능력: ${ability}
 배경: ${background}
 성격: ${personality}`;
     

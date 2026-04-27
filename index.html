@@ -2,1019 +2,480 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>살아남거나, 신부가 되거나.</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>잿더미 위의 페르소나</title>
 <style>
-:root {
-  --bg-deep: #0a0806;
-  --bg-card: #14110d;
-  --bg-warm: #1a1510;
-  --amber: #d4913a;
-  --amber-dim: #b8782e;
-  --amber-glow: #e8a845;
-  --fire: #c4501a;
-  --fire-dim: #8b3311;
-  --sand: #c4b69a;
-  --text: #cdc0aa;
-  --text-dim: #8a7e6c;
-  --text-bright: #f0e8d8;
-  --border: #251f16;
-  --border-warm: #382e1e;
-  --highlight: #e8a845;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg-deep);
-  color: var(--text);
-  font-family: 'Noto Serif KR', serif;
-  font-size: 13.5px;
-  line-height: 2;
-  min-height: 100vh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  letter-spacing: 0.01em;
-}
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background:
-    radial-gradient(1px 1px at 10% 20%, rgba(232,168,69,0.35), transparent),
-    radial-gradient(1px 1px at 50% 10%, rgba(232,168,69,0.45), transparent),
-    radial-gradient(1px 1px at 90% 80%, rgba(232,168,69,0.35), transparent),
-    radial-gradient(1.5px 1.5px at 25% 45%, rgba(240,232,216,0.4), transparent),
-    radial-gradient(1.5px 1.5px at 75% 65%, rgba(240,232,216,0.35), transparent);
-  pointer-events: none; z-index: 0;
-  animation: twinkle 8s ease-in-out infinite alternate;
-}
-@keyframes twinkle { 0%{opacity:.5} 50%{opacity:.85} 100%{opacity:.45} }
-
-/* ── Highlight ── */
-.hl { color: var(--highlight); font-weight: 600; }
-
-/* ── Layout ── */
-.app { max-width: 460px; margin: 0 auto; position: relative; z-index: 1; padding-bottom: 70px; }
-.section { display: none; }
-.section.active { display: block; }
-
-/* ── Hero ── */
-.hero { text-align: center; padding: 20px 18px 36px; position: relative; }
-.hero::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:50%; height:1px; background:linear-gradient(90deg,transparent,var(--amber-dim),transparent); }
-
-.main-visual { position: relative; margin-bottom: 24px; padding: 10px; }
-.main-visual .frame-outer { position:absolute; inset:0; border:1px solid var(--amber-dim); opacity:0.35; pointer-events:none; }
-.main-visual .frame-inner { position:absolute; inset:6px; border:1px solid var(--amber-dim); opacity:0.15; pointer-events:none; }
-.main-visual .corner { position:absolute; width:14px; height:14px; z-index:5; pointer-events:none; }
-.main-visual .corner::before, .main-visual .corner::after { content:''; position:absolute; background:var(--amber); opacity:0.5; }
-.main-visual .corner-tl { top:3px; left:3px; }
-.main-visual .corner-tl::before { top:0; left:0; width:14px; height:2px; }
-.main-visual .corner-tl::after { top:0; left:0; width:2px; height:14px; }
-.main-visual .corner-tr { top:3px; right:3px; }
-.main-visual .corner-tr::before { top:0; right:0; width:14px; height:2px; }
-.main-visual .corner-tr::after { top:0; right:0; width:2px; height:14px; }
-.main-visual .corner-bl { bottom:3px; left:3px; }
-.main-visual .corner-bl::before { bottom:0; left:0; width:14px; height:2px; }
-.main-visual .corner-bl::after { bottom:0; left:0; width:2px; height:14px; }
-.main-visual .corner-br { bottom:3px; right:3px; }
-.main-visual .corner-br::before { bottom:0; right:0; width:14px; height:2px; }
-.main-visual .corner-br::after { bottom:0; right:0; width:2px; height:14px; }
-.main-visual .diamond { position:absolute; width:7px; height:7px; background:var(--amber); transform:rotate(45deg); opacity:0.35; z-index:5; pointer-events:none; }
-.main-visual .diamond-top { top:-3.5px; left:50%; margin-left:-3.5px; }
-.main-visual .diamond-bottom { bottom:-3.5px; left:50%; margin-left:-3.5px; }
-.main-visual .diamond-left { left:-3.5px; top:50%; margin-top:-3.5px; }
-.main-visual .diamond-right { right:-3.5px; top:50%; margin-top:-3.5px; }
-.main-visual .visual-img { width:100%; aspect-ratio:3/4; position:relative; overflow:hidden; }
-.main-visual .visual-img img { width:100%; height:100%; object-fit:cover; }
-.main-visual .visual-img::after { content:''; position:absolute; inset:0; background:linear-gradient(transparent 45%, rgba(10,8,6,0.65) 75%, rgba(10,8,6,0.95)); z-index:1; }
-.visual-overlay { position:absolute; bottom:24px; left:0; right:0; text-align:center; z-index:2; }
-.vo-rune { font-size:11px; letter-spacing:10px; color:var(--amber-dim); opacity:0.5; margin-bottom:10px; }
-.vo-title { font-family:'Cinzel',serif; font-size:10px; letter-spacing:7px; color:var(--amber); text-transform:uppercase; margin-bottom:12px; }
-.vo-main { font-size:22px; font-weight:700; color:var(--text-bright); line-height:1.7; text-shadow:0 2px 20px rgba(0,0,0,0.8); }
-
-.hero-desc { font-size:14px; color:var(--sand); line-height:2; font-weight:300; font-style:italic; margin-top:4px; }
-.hero-divider { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:20px; color:var(--amber-dim); font-size:10px; opacity:0.5; }
-.hero-divider span { font-size:5px; }
-.hero-divider::before, .hero-divider::after { content:''; width:36px; height:1px; background:var(--amber-dim); }
-
-/* ── Shared ── */
-.info-section { padding: 24px 18px; }
-.section-header { text-align:center; margin-bottom:28px; }
-.section-header h2 { font-size:16px; color:var(--amber); font-weight:600; letter-spacing:5px; margin-bottom:10px; }
-.section-header .line { display:flex; align-items:center; justify-content:center; gap:6px; }
-.section-header .line::before, .section-header .line::after { content:''; width:28px; height:1px; background:var(--amber-dim); opacity:0.35; }
-.section-header .line span { color:var(--amber-dim); font-size:7px; opacity:0.5; }
-
-/* ── Info Cards ── */
-.info-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 24px 22px;
-  margin-bottom: 18px;
-  position: relative;
-  overflow: hidden;
-}
-.info-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(180deg,var(--amber),var(--fire-dim)); opacity:0.5; }
-.info-card h3 { font-size:14px; color:var(--amber-glow); margin-bottom:14px; display:flex; align-items:center; gap:8px; line-height:1.4; }
-.info-card h3 .icon { font-size:15px; opacity:0.75; }
-.info-card p { font-size:13.5px; line-height:2.1; color:var(--text); font-weight:300; }
-.info-card .detail { font-size:12.5px; color:var(--text-dim); margin-top:12px; padding-top:12px; border-top:1px solid var(--border); line-height:2; }
-
-/* ── Map ── */
-.map-section { padding: 24px 18px; }
-.map-container { border:1px solid var(--border-warm); border-radius:4px; overflow:hidden; box-shadow:0 4px 24px rgba(212,145,58,0.06); }
-.map-container img { width:100%; display:block; cursor:zoom-in; }
-.map-label { text-align:center; padding:14px 12px; font-size:12px; color:var(--text-dim); letter-spacing:2px; background:var(--bg-card); border-top:1px solid var(--border); line-height:2; }
-
-/* ── Character Cards ── */
-.char-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:24px; }
-.char-img { width:100%; aspect-ratio:3/4; position:relative; overflow:hidden; }
-.char-img img { width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
-.char-img::after { content:''; position:absolute; inset:0; background:linear-gradient(transparent 55%, rgba(10,8,6,0.9)); z-index:1; }
-.char-name-overlay { position:absolute; bottom:18px; left:22px; z-index:2; }
-.char-name-overlay h3 { font-size:21px; color:var(--text-bright); font-weight:700; text-shadow:0 2px 12px rgba(0,0,0,0.8); line-height:1.3; }
-.char-name-overlay .char-role { font-family:'Cinzel',serif; font-size:11px; color:var(--amber); letter-spacing:3px; margin-top:5px; }
-.char-body { padding: 24px 22px; }
-.char-quote { font-size:14px; color:var(--amber-glow); font-style:italic; line-height:1.9; padding:14px 0; border-bottom:1px solid var(--border); margin-bottom:18px; }
-.char-desc { font-size:13.5px; line-height:2.2; color:var(--text); font-weight:300; }
-.char-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:18px; }
-.char-tags span { font-size:11px; color:var(--text-dim); border:1px solid var(--border); padding:4px 12px; border-radius:2px; letter-spacing:1px; }
-
-/* ── NPC Cards ── */
-.npc-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.npc-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:16px; }
-.npc-card .npc-name { font-size:14px; color:var(--amber); font-weight:600; margin-bottom:5px; }
-.npc-card .npc-role { font-size:11px; color:var(--text-dim); letter-spacing:1px; margin-bottom:10px; }
-.npc-card .npc-desc { font-size:12.5px; color:var(--text); line-height:1.9; font-weight:300; }
-
-/* ── Rival Cards ── */
-.rival-card { background:var(--bg-card); border:1px solid var(--border); border-left:2px solid var(--fire-dim); border-radius:4px; overflow:hidden; margin-bottom:14px; }
-.rival-row { display:flex; gap:0; }
-.rival-img { width:100px; min-height:130px; flex-shrink:0; overflow:hidden; }
-.rival-img img { width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
-.rival-body { padding:16px; flex:1; }
-.rival-body .npc-name { font-size:14px; color:var(--amber); font-weight:600; margin-bottom:5px; }
-.rival-body .npc-role { font-size:11px; color:var(--text-dim); letter-spacing:1px; margin-bottom:10px; }
-.rival-body .npc-desc { font-size:12.5px; color:var(--text); line-height:1.9; font-weight:300; }
-
-/* ── Persona Builder ── */
-.persona-builder {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 22px 20px;
-}
-.pb-group { margin-bottom: 22px; }
-.pb-group:last-of-type { margin-bottom: 16px; }
-.pb-label {
-  display: block;
-  font-size: 13px;
-  color: var(--amber);
-  font-weight: 600;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
-}
-.pb-input {
-  width: 100%;
-  background: var(--bg-warm);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 10px 12px;
-  color: var(--text-bright);
-  font-size: 13px;
-  font-family: 'Noto Serif KR', serif;
-  outline: none;
-  transition: all 0.2s;
-}
-.pb-input:focus { border-color: var(--amber-dim); }
-.pb-input::placeholder { color: var(--text-dim); font-size: 12px; }
-.pb-textarea { resize: vertical; min-height: 70px; line-height: 1.7; }
-.pb-hint { font-size: 10.5px; color: var(--text-dim); margin-top: 6px; letter-spacing: 0.5px; }
-
-.pb-radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
-.pb-radio-col { flex-direction: column; gap: 6px; }
-.pb-radio {
-  flex: 1;
-  min-width: 80px;
-  cursor: pointer;
-}
-.pb-radio-col .pb-radio { flex: unset; }
-.pb-radio input { display: none; }
-.pb-radio span {
-  display: block;
-  padding: 9px 12px;
-  background: var(--bg-warm);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  font-size: 12.5px;
-  color: var(--text);
-  text-align: center;
-  transition: all 0.2s;
-}
-.pb-radio-col .pb-radio span { text-align: left; }
-.pb-radio input:checked + span {
-  background: rgba(212,145,58,0.12);
-  border-color: var(--amber-dim);
-  color: var(--amber-glow);
-}
-.pb-radio:hover span { border-color: var(--amber-dim); }
-
-.pb-check-group { display: flex; flex-wrap: wrap; gap: 6px; }
-.pb-check {
-  cursor: pointer;
-}
-.pb-check input { display: none; }
-.pb-check span {
-  display: inline-block;
-  padding: 7px 12px;
-  background: var(--bg-warm);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  font-size: 12px;
-  color: var(--text);
-  transition: all 0.2s;
-}
-.pb-check input:checked + span {
-  background: rgba(212,145,58,0.15);
-  border-color: var(--amber);
-  color: var(--amber-glow);
-}
-
-.pb-generate {
-  display: block;
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, var(--amber-dim), var(--fire));
-  border: none;
-  border-radius: 4px;
-  color: var(--text-bright);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  cursor: pointer;
-  font-family: 'Noto Serif KR', serif;
-  margin-top: 10px;
-  transition: all 0.2s;
-  box-shadow: 0 4px 16px rgba(212,145,58,0.15);
-}
-.pb-generate:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,145,58,0.25); }
-.pb-generate:active { transform: scale(0.98); }
-
-.pb-result {
-  margin-top: 20px;
-  padding: 18px;
-  background: var(--bg-warm);
-  border: 1px solid var(--amber-dim);
-  border-radius: 4px;
-}
-.pb-result-label {
-  font-size: 12px;
-  color: var(--amber);
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-.pb-result-text {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 12.5px;
-  color: var(--text-bright);
-  line-height: 2;
-  white-space: pre-wrap;
-  margin-bottom: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-}
-.pb-copy {
-  width: 100%;
-  padding: 11px;
-  background: var(--amber-dim);
-  border: none;
-  border-radius: 3px;
-  color: var(--bg-deep);
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  cursor: pointer;
-  font-family: 'Noto Serif KR', serif;
-  transition: all 0.2s;
-}
-.pb-copy:hover { background: var(--amber); }
-.pb-copy.copied { background: var(--amber-glow); color: var(--bg-deep); }
-
-/* ── Persona Cards (legacy) ── */
-.persona-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: 2px solid var(--amber);
-  border-radius: 4px;
-  padding: 16px 20px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  transition: all 0.3s;
-  position: relative;
-}
-.persona-card:hover { border-color: var(--amber-dim); background: var(--bg-warm); }
-.persona-card:active { transform: scale(0.98); }
-.persona-card.copied { border-color: var(--amber-glow); background: rgba(212,145,58,0.1); }
-.persona-card.copied::after {
-  content: '✓ 복사됨!';
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  font-size: 11px;
-  color: var(--amber-glow);
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-.persona-title { font-size: 14.5px; color: var(--amber); font-weight: 600; margin-bottom: 8px; letter-spacing: 1px; }
-.persona-desc { font-size: 12.5px; color: var(--text); line-height: 1.9; font-weight: 300; }
-
-/* ── Route Cards ── */
-.route-section { padding: 24px 18px 20px; }
-.route-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:22px; margin-bottom:16px; transition:all 0.3s; position:relative; overflow:hidden; }
-.route-card:hover { border-color:var(--amber-dim); }
-.route-card .route-num { font-family:'Cinzel',serif; font-size:10px; color:var(--amber-dim); letter-spacing:5px; margin-bottom:10px; }
-.route-card .route-title { font-size:16px; color:var(--text-bright); font-weight:600; margin-bottom:10px; line-height:1.5; }
-.route-card .route-desc { font-size:13px; color:var(--text-dim); line-height:2; font-weight:300; }
-
-/* ── Guide ── */
-.guide-section { padding:14px 18px 24px; }
-.guide-list { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:20px 22px; }
-.guide-item { display:flex; align-items:baseline; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px; color:var(--text); font-weight:300; line-height:1.8; }
-.guide-item:last-child { border-bottom:none; }
-.guide-item .gi-icon { font-size:14px; flex-shrink:0; }
-.guide-item .gi-label { color:var(--amber); font-weight:500; white-space:nowrap; min-width:48px; }
-
-/* ── Commands ── */
-.cmd-section { padding:14px 18px 20px; }
-.cmd-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:16px 20px; margin-bottom:10px; display:flex; align-items:baseline; gap:14px; }
-.cmd-name { font-size:13px; color:var(--amber); font-weight:600; font-family:'Cinzel','Noto Serif KR',serif; white-space:nowrap; }
-.cmd-desc { font-size:12.5px; color:var(--text-dim); line-height:1.8; font-weight:300; }
-
-/* ── Bottom Nav ── */
-.bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:460px; z-index:100; background:var(--bg-deep); border-top:1px solid var(--border-warm); display:flex; box-shadow:0 -4px 24px rgba(0,0,0,0.5); }
-.nav-btn { flex:1; padding:14px 0; text-align:center; font-size:12px; letter-spacing:3px; color:var(--text-dim); background:transparent; border:none; cursor:pointer; transition:all 0.3s; font-family:'Noto Serif KR',serif; position:relative; }
-.nav-btn.active { color:var(--amber); }
-.nav-btn.active::after { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:36px; height:2px; background:var(--amber); }
-.nav-btn:not(:last-child) { border-right:1px solid var(--border); }
-
-/* ── Lightbox ── */
-.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:9000; align-items:center; justify-content:center; cursor:zoom-out; }
-.lightbox.active { display:flex; }
-.lightbox img { max-width:95%; max-height:90vh; object-fit:contain; }
-.lb-close { position:absolute; top:16px; right:16px; background:none; border:1px solid rgba(255,255,255,0.2); border-radius:50%; width:36px; height:36px; color:var(--text); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-
-/* ── Animations ── */
-@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-.fade-in { animation:fadeUp 0.6s ease-out forwards; }
-.delay-1 { animation-delay:0.15s; opacity:0; }
-.delay-2 { animation-delay:0.25s; opacity:0; }
-.delay-3 { animation-delay:0.35s; opacity:0; }
-
-::-webkit-scrollbar { width:3px; }
-::-webkit-scrollbar-track { background:var(--bg-deep); }
-::-webkit-scrollbar-thumb { background:var(--border-warm); border-radius:2px; }
+  @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Serif+KR:wght@400;500;700&display=swap');
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Noto Serif KR', serif;
+    background: #1a1410;
+    color: #2a1f15;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 520px;
+    width: 100%;
+    background: #d4c4a0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(139, 90, 43, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(101, 67, 33, 0.1) 0%, transparent 50%),
+      linear-gradient(135deg, #d4c4a0 0%, #c8b88e 100%);
+    border: 2px solid #8b6f47;
+    border-radius: 4px;
+    padding: 36px 28px;
+    position: relative;
+    box-shadow: 
+      0 10px 40px rgba(0,0,0,0.6),
+      inset 0 0 60px rgba(139, 90, 43, 0.15);
+  }
+  
+  .container::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, #8b1a1a 0%, transparent 70%);
+    opacity: 0.4;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  .container::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #5a0f0f 0%, transparent 70%);
+    opacity: 0.3;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  .title {
+    font-family: 'Gaegu', cursive;
+    font-size: 30px;
+    text-align: center;
+    color: #2a1f15;
+    margin-bottom: 6px;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+    font-weight: 700;
+  }
+  
+  .subtitle {
+    font-family: 'Gaegu', cursive;
+    text-align: center;
+    color: #6b4423;
+    font-size: 14px;
+    margin-bottom: 22px;
+    letter-spacing: 1px;
+  }
+  
+  .subtitle .red {
+    color: #8b1a1a;
+    font-weight: bold;
+  }
+  
+  .info-box {
+    background: rgba(139, 90, 43, 0.1);
+    border: 1px dashed #8b6f47;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-family: 'Gaegu', cursive;
+    font-size: 13px;
+    color: #6b4423;
+    text-align: center;
+    line-height: 1.5;
+  }
+  
+  .gender-group {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .gender-btn {
+    padding: 6px 18px;
+    font-family: 'Gaegu', cursive;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid #6b4423;
+    background: transparent;
+    color: #6b4423;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  
+  .gender-btn.active {
+    background: #6b4423;
+    color: #f4e8d0;
+  }
+  
+  .divider {
+    border: none;
+    border-top: 1px dashed #6b4423;
+    margin: 14px 0;
+    opacity: 0.5;
+  }
+  
+  .field {
+    margin-bottom: 14px;
+  }
+  
+  .field-label {
+    font-family: 'Gaegu', cursive;
+    color: #6b4423;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  
+  .field-input-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  
+  .field-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #8b6f47;
+    background: rgba(244, 232, 208, 0.6);
+    border-radius: 4px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 14px;
+    color: #2a1f15;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .field-input:focus {
+    outline: none;
+    border-color: #8b1a1a;
+    background: rgba(244, 232, 208, 0.9);
+  }
+  
+  .field-input.highlight {
+    color: #8b1a1a;
+    font-weight: 700;
+  }
+  
+  .roll-btn {
+    padding: 8px 14px;
+    font-size: 14px;
+    border: 1px solid #6b4423;
+    background: #c8b88e;
+    color: #2a1f15;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+  }
+  
+  .roll-btn:hover {
+    background: #8b6f47;
+    color: #f4e8d0;
+  }
+  
+  .roll-btn:active {
+    transform: scale(0.95);
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  
+  .btn {
+    flex: 1;
+    padding: 12px 16px;
+    font-family: 'Gaegu', cursive;
+    font-size: 17px;
+    font-weight: 700;
+    border: 2px solid #6b4423;
+    background: #c8b88e;
+    color: #2a1f15;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+  
+  .btn:hover {
+    background: #8b6f47;
+    color: #f4e8d0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  
+  .btn:active {
+    transform: translateY(0);
+  }
+  
+  .btn.copy.copied {
+    background: #8b1a1a;
+    color: #f4e8d0;
+    border-color: #5a0f0f;
+  }
+  
+  .ash-mark {
+    text-align: center;
+    color: #8b1a1a;
+    font-size: 16px;
+    margin: 12px 0;
+    font-weight: bold;
+    letter-spacing: 4px;
+  }
+  
+  .footer {
+    text-align: center;
+    margin-top: 16px;
+    font-family: 'Gaegu', cursive;
+    color: #6b4423;
+    font-size: 12px;
+    opacity: 0.7;
+  }
 </style>
 </head>
 <body>
-<div class="app">
-
-  <!-- ═══════ SECTION 1: 세계관 ═══════ -->
-  <div class="section active" id="sec-world">
-
-    <!-- BGM -->
-    <div style="background:var(--bg-card);padding:8px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
-      <span style="font-size:11px;letter-spacing:.12em;color:var(--amber);white-space:nowrap">♪</span>
-      <span style="font-size:10px;color:var(--text-dim);font-style:italic;flex:1">투란의 밤</span>
-      <button onclick="openBGM()" style="background:var(--amber-dim);border:none;color:var(--bg-deep);font-family:'Noto Serif KR',serif;font-size:10.5px;font-weight:600;padding:5px 14px;cursor:pointer;border-radius:2px;">▶ 재생</button>
+  <div class="container">
+    <div class="title">잿더미 위의 페르소나</div>
+    <div class="subtitle">— 47년차 세계에 <span class="red">떨어진</span> 자 —</div>
+    
+    <div class="info-box">
+      직접 입력하거나 🎲 버튼으로 뽑아보세요<br>
+      각 항목 자유롭게 조합 가능
     </div>
-
-    <!-- Hero -->
-    <div class="hero fade-in">
-      <div class="main-visual">
-        <div class="frame-outer"></div>
-        <div class="frame-inner"></div>
-        <div class="corner corner-tl"></div>
-        <div class="corner corner-tr"></div>
-        <div class="corner corner-bl"></div>
-        <div class="corner corner-br"></div>
-        <div class="diamond diamond-top"></div>
-        <div class="diamond diamond-bottom"></div>
-        <div class="diamond diamond-left"></div>
-        <div class="diamond diamond-right"></div>
-        <div class="visual-img">
-          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EB%A9%94%EC%9D%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.webp" alt="메인 비주얼">
-          <div class="visual-overlay">
-            <div class="vo-rune">⊹ ⊹ ⊹</div>
-            <div class="vo-title">TURAN</div>
-            <div class="vo-main">살아남거나,<br>신부가 되거나.</div>
-          </div>
-        </div>
-      </div>
-      <p class="hero-desc">하늘에서 떨어졌습니다. 짝의식 한복판에!</p>
-      <div class="hero-divider"><span>◆</span></div>
+    
+    <div class="gender-group">
+      <button class="gender-btn active" data-gender="random">랜덤</button>
+      <button class="gender-btn" data-gender="여">여</button>
+      <button class="gender-btn" data-gender="남">남</button>
     </div>
-
-    <!-- Intro -->
-    <div class="info-section fade-in delay-1">
-      <div class="info-card">
-        <p>
-          눈 떠보니 초원 한가운데였습니다.<br><br>
-          핸드폰도 없고, 와이파이도 없고, 편의점도 없습니다.<br>
-          대신 <span class="hl">창 든 남자 셋</span>이 당신을 내려다보고 있습니다.<br><br>
-          문명이 멸망하고 300년쯤 지난 세계.<br>
-          사냥과 교역으로 겨우겨우 버티는 유목민들이 사는 곳입니다.<br><br>
-          오늘은 <span class="hl">짝의식</span>이었습니다.<br>
-          만 열아홉을 넘긴 자들이 짝의 손을 잡고 불 앞에 서는 밤.<br>
-          부족에서 가장 신성한 밤이었죠.<br><br>
-          그 짝들이 손을 맞잡으려는 바로 그 순간 —<br>
-          하늘에서 이상한 옷차림의 인간이 뚝 떨어졌습니다.<br><br>
-          <em style="color:var(--amber); font-size:14.5px;">..당신입니다.</em>
-        </p>
+    
+    <hr class="divider">
+    
+    <div class="field">
+      <div class="field-label">이름</div>
+      <div class="field-input-row">
+        <input type="text" class="field-input highlight" id="name" placeholder="직접 입력 또는 🎲">
+        <button class="roll-btn" data-roll="name">🎲</button>
       </div>
     </div>
-
-    <!-- Map -->
-    <div class="map-section fade-in delay-2">
-      <div class="section-header">
-        <h2>⊹ 투란의 대지 ⊹</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-      <div class="map-container">
-        <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%A7%80%EB%8F%84.webp" alt="투란의 대지" onclick="openLightbox(this.src)">
-        <div class="map-label">계절마다 캠프를 옮깁니다<br>봄 → 초원 · 여름 → 수원지 · 가을 → 유적 · 겨울 → 협곡</div>
+    
+    <div class="field">
+      <div class="field-label">나이</div>
+      <div class="field-input-row">
+        <input type="text" class="field-input" id="age" placeholder="직접 입력 또는 🎲">
+        <button class="roll-btn" data-roll="age">🎲</button>
       </div>
     </div>
-
-    <!-- Rules -->
-    <div class="info-section fade-in delay-3">
-      <div class="section-header">
-        <h2>알아두세요</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-      <div class="info-card">
-        <h3><span class="icon">✋</span>손잡기</h3>
-        <p>이곳에서는 부족 앞에서 의도적으로 손을 잡으면 그건 <span class="hl">구애</span>라고 생각한답니다.<br>손을 잡을 때는 생각해서 잡아야 해요.</p>
-      </div>
-      <div class="info-card">
-        <h3><span class="icon">💍</span>짝의식</h3>
-        <p>봄에 딱 한 번 열려요.<br>짝이랑 손잡고 불 앞에 서면 공식 선언이고, 그날 밤이 <span class="hl">첫날밤</span>이에요.<br>타르는 세나, 아쉬는 이렌이 짝이고 — 나기만 짝이 없답니다.</p>
+    
+    <hr class="divider">
+    
+    <div class="field">
+      <div class="field-label">외형</div>
+      <div class="field-input-row">
+        <input type="text" class="field-input" id="appearance" placeholder="머리·눈·체형">
+        <button class="roll-btn" data-roll="appearance">🎲</button>
       </div>
     </div>
+    
+    <div class="field">
+      <div class="field-label">문양 위치</div>
+      <div class="field-input-row">
+        <input type="text" class="field-input highlight" id="mark" placeholder="문양이 새겨진 곳">
+        <button class="roll-btn" data-roll="mark">🎲</button>
+      </div>
+    </div>
+    
+    <div class="field">
+      <div class="field-label">배경</div>
+      <div class="field-input-row">
+        <input type="text" class="field-input" id="background" placeholder="어떻게 떨어졌나">
+        <button class="roll-btn" data-roll="background">🎲</button>
+      </div>
+    </div>
+    
+    <div class="field">
+      <div class="field-label">성격</div>
+      <div class="field-input-row">
+        <input type="text" class="field-input" id="personality" placeholder="MBTI·키워드">
+        <button class="roll-btn" data-roll="personality">🎲</button>
+      </div>
+    </div>
+    
+    <div class="ash-mark">✦ ✦ ✦</div>
+    
+    <div class="button-group">
+      <button class="btn" id="rollAllBtn">🎲 전체 뽑기</button>
+      <button class="btn copy" id="copyBtn">📋 복사하기</button>
+    </div>
+    
+    <div class="footer">— 살아남아아아 —</div>
   </div>
-
-  <!-- ═══════ SECTION 2: 캐릭터 ═══════ -->
-  <div class="section" id="sec-char">
-    <div class="info-section" style="padding-top:28px;">
-      <div class="section-header">
-        <h2>⊹ 캐릭터 ⊹</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-
-      <!-- 타르 -->
-      <div class="char-card">
-        <div class="char-img">
-          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%ED%83%80%EB%A5%B41.jpg" alt="타르" onclick="openLightbox(this.src)">
-          <div class="char-name-overlay">
-            <h3>타르 Tar</h3>
-            <div class="char-role">사냥꾼 · 24세 · 188cm</div>
-          </div>
-        </div>
-        <div class="char-body">
-          <div class="char-quote">"...하. 왜 내가 이걸... 알았다고."</div>
-          <p class="char-desc">
-            만성 피로에 시달리는 사냥꾼이에요.<br>
-            한숨이 반이고 투덜거림이 나머지 반입니다.<br>
-            귀찮다는 말을 달고 살지만 — 결국엔 다 해줘요.<br><br>
-            투란 부족을 먹여 살리고, 위험한 것으로부터 지켜주는 사냥꾼이랍니다.<br>
-            과거에 무언가를 잃었어요. 그래서 아무것도 안 느끼는 척합니다.
-          </p>
-          <div class="char-tags">
-            <span>만성피로</span>
-            <span>감정무자각</span>
-            <span>호감시빠꾸없이직진</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 나기 -->
-      <div class="char-card">
-        <div class="char-img">
-          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EB%82%98%EA%B8%B01.jpg" alt="나기" onclick="openLightbox(this.src)">
-          <div class="char-name-overlay">
-            <h3>나기 Nagi</h3>
-            <div class="char-role">장사꾼 · 22세 · 186cm</div>
-          </div>
-        </div>
-        <div class="char-body">
-          <div class="char-quote">"내가 해냈거든?! ...야, 왜 웃어. 웃으면 나 진짜 화난다."</div>
-          <p class="char-desc">
-            시끄럽고, 허세 넘치고, 자신만만한 막내입니다.<br>
-            교역장에선 협상의 귀재라 불리지만 — 뒤에서는 자기가 <span class="hl">제일 쓸모없다</span>고 생각합니다.<br><br>
-            장신구를 주렁주렁 달고 다니는 건, 매일 자기한테 "나 해냈어"라고 증명하는 것입니다.<br><br>
-            원래 투란 출신이 아니에요. 허세는 자기를 지키는 방법이랍니다.
-          </p>
-          <div class="char-tags">
-            <span>허세</span>
-            <span>시끄러움</span>
-            <span>장신구덕후</span>
-            <span>인정욕구</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 아쉬 -->
-      <div class="char-card">
-        <div class="char-img">
-          <img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%95%84%EC%89%AC.jpg" alt="아쉬" onclick="openLightbox(this.src)">
-          <div class="char-name-overlay">
-            <h3>아쉬 Ash</h3>
-            <div class="char-role">불지기 · 30세 · 189cm</div>
-          </div>
-        </div>
-        <div class="char-body">
-          <div class="char-quote">"그래~? 하암... 나중에~"</div>
-          <p class="char-desc">
-            부족의 불을 지키고, 약초를 다루는 남자예요.<br>
-            나른하고, 능글맞고, 게으른 아저씨.<br>
-            누구한테나 가볍고 친근하지만 — 속을 아는 사람은 없답니다.<br><br>
-            숨 쉬듯 플러팅하고, 나기 놀리는 게 유일한 취미예요.<br>
-            의식을 주관할 때만 <span class="hl">완전히 다른 사람</span>이 됩니다.<br><br>
-            누구에게도 진심을 안 주는 스타일입니다.
-          </p>
-          <div class="char-tags">
-            <span>능글</span>
-            <span>플러팅요정</span>
-            <span>가면</span>
-            <span>맏형</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NPC -->
-    <div class="info-section">
-      <div class="section-header">
-        <h2>NPC</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-      <div class="npc-grid">
-        <div class="npc-card">
-          <div class="npc-name">쿠엔</div>
-          <div class="npc-role">여 · 족장 · 54세</div>
-          <div class="npc-desc">과묵하고, 냉정하고, 공정한 투란의 수장입니다. 아쉬를 어릴 때부터 키웠습니다.</div>
-        </div>
-        <div class="npc-card">
-          <div class="npc-name">하얀</div>
-          <div class="npc-role">여 · 이야기꾼 · 74세</div>
-          <div class="npc-desc">부족에서 가장 늙은 전승자. 옛이야기 떡밥을 슬쩍 투하합니다.</div>
-        </div>
-        <div class="npc-card">
-          <div class="npc-name">올리</div>
-          <div class="npc-role">남 · 꼬마 · 10세</div>
-          <div class="npc-desc">이빠진 웃음에 큰 눈. 당신한테 호기심이 폭발합니다. 질문이 안 끝나요.</div>
-        </div>
-        <div class="npc-card">
-          <div class="npc-name">도르</div>
-          <div class="npc-role">남 · 전사 · 32세</div>
-          <div class="npc-desc">삭발에 턱흉터. 경계파입니다. 당신을 못마땅해합니다. 타르의 사냥 파트너.</div>
-        </div>
-      </div>
-
-      <div class="section-header" style="margin-top:28px;">
-        <h2>라이벌</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-
-      <div class="rival-card">
-        <div class="rival-row">
-          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%84%B8%EB%82%981.jpg" alt="세나" onclick="event.stopPropagation();openLightbox(this.src)"></div>
-          <div class="rival-body">
-            <div class="npc-name">세나</div>
-            <div class="npc-role">여 · 여전사 · 22세</div>
-            <div class="npc-desc">타르의 사냥 파트너이자 짝의식 상대입니다. 직선적이고 거침없으며, "내 자리"에 대한 자부심이 강합니다.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rival-card">
-        <div class="rival-row">
-          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EB%A6%AC%EC%95%841.jpg" alt="리아" onclick="event.stopPropagation();openLightbox(this.src)"></div>
-          <div class="rival-body">
-            <div class="npc-name">리아</div>
-            <div class="npc-role">여 · 교역 · 21세</div>
-            <div class="npc-desc">나기보다 한 수 위입니다. 여우같은 웃음으로 나기를 들었다 놨다 합니다.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rival-card">
-        <div class="rival-row">
-          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%9D%B4%EB%A0%8C1.jpg" alt="이렌" onclick="event.stopPropagation();openLightbox(this.src)"></div>
-          <div class="rival-body">
-            <div class="npc-name">이렌</div>
-            <div class="npc-role">여 · 카자르 족장의 딸 · 24세</div>
-            <div class="npc-desc">아쉬의 정략 짝입니다. 은발에 붉은 눈. 차갑고 품위 있지만, "정해진 것"에 대한 자존심이 있습니다.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rival-card">
-        <div class="rival-row">
-          <div class="rival-img"><img src="https://raw.githubusercontent.com/happyday3026-hash/SkyDrop/main/%EC%A0%9C%EC%9D%B4.jpg" alt="제이" onclick="event.stopPropagation();openLightbox(this.src)"></div>
-          <div class="rival-body">
-            <div class="npc-name">제이</div>
-            <div class="npc-role">남 · 카자르 전사 · 23세</div>
-            <div class="npc-desc">건방진 웃음의 소유자. 카자르 부족의 전사이자, 당신한테 관심이 있는 남자입니다.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ SECTION 3: 시작 ═══════ -->
-  <div class="section" id="sec-start">
-    <div class="route-section" style="padding-top:28px;">
-      <div class="section-header">
-        <h2>⊹ 시작 설정 ⊹</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-
-      <div class="route-card">
-        <div class="route-num">ROUTE 01</div>
-        <div class="route-title">짝의식에 떨어졌습니다</div>
-        <div class="route-desc">일 년에 단 한 번뿐인 의식을 엎었습니다.<br>족장이 묻습니다. "이름을 대라. 대답에 따라 살려둘지 정하겠다."</div>
-      </div>
-
-      <div class="route-card">
-        <div class="route-num">ROUTE 02</div>
-        <div class="route-title">신부로 떨어졌습니다</div>
-        <div class="route-desc">신이 내려준 신부라 생각하고, 부족이 무릎을 꿇었습니다.<br>그리고 족장이 묻습니다. "이름이 뭐냐. 신부."</div>
-      </div>
-    </div>
-
-    <!-- 페르소나 -->
-    <div class="info-section">
-      <div class="section-header">
-        <h2>⊹ 페르소나 만들기 ⊹</h2>
-        <div class="line"><span>◆</span></div>
-        <p style="font-size:12px;color:var(--text-dim);margin-top:10px;line-height:1.8;">선택하고 입력하면 나만의 페르소나가 완성돼요! ♡</p>
-      </div>
-
-      <div class="persona-builder">
-        <!-- 이름 -->
-        <div class="pb-group">
-          <label class="pb-label">✧ 이름</label>
-          <input type="text" id="pb-name" class="pb-input" placeholder="자유롭게 입력">
-        </div>
-
-        <!-- 나이 -->
-        <div class="pb-group">
-          <label class="pb-label">✧ 나이</label>
-          <input type="number" id="pb-age" class="pb-input" placeholder="19 이상 추천" min="15" max="99" value="21">
-          <p class="pb-hint">19세 미만은 짝의식/성인의식 참여 불가, 스킨십 제한</p>
-        </div>
-
-        <!-- 성별 -->
-        <div class="pb-group">
-          <label class="pb-label">✧ 성별</label>
-          <div class="pb-radio-group">
-            <label class="pb-radio"><input type="radio" name="gender" value="여"><span>여</span></label>
-            <label class="pb-radio"><input type="radio" name="gender" value="남"><span>남</span></label>
-            <label class="pb-radio"><input type="radio" name="gender" value="자유 설정" checked><span>자유</span></label>
-          </div>
-        </div>
-
-        <!-- 출신 -->
-        <div class="pb-group">
-          <label class="pb-label">✧ 출신</label>
-          <div class="pb-radio-group pb-radio-col">
-            <label class="pb-radio"><input type="radio" name="origin" value="현대 한국에서 떨어짐. 부족어 전혀 못함. 현대 상식은 있지만 생존 스킬은 제로" checked><span>🌸 현대 한국</span></label>
-            <label class="pb-radio"><input type="radio" name="origin" value="다른 유목 부족 출신. 부족어 가능. 투란 규칙은 모름. 떠나온 이유는 본인만 안다"><span>🏹 다른 부족</span></label>
-            <label class="pb-radio"><input type="radio" name="origin" value="카자르 부족 출신. 이렌과 먼 친척 관계. 품위 있는 말투. 정치적 이유로 투란에 옴"><span>👑 카자르 귀족</span></label>
-            <label class="pb-radio"><input type="radio" name="origin" value="기억 상실. 자신이 누구인지 모른다. 손목에 이상한 문양. 단편적 기억만 가끔 떠오름"><span>❓ 기억 없음</span></label>
-          </div>
-        </div>
-
-        <!-- 종족 -->
-        <div class="pb-group">
-          <label class="pb-label">✧ 종족</label>
-          <div class="pb-radio-group pb-radio-col">
-            <label class="pb-radio"><input type="radio" name="species" value="인간" checked><span>👤 인간</span></label>
-            <label class="pb-radio"><input type="radio" name="species" value="늑대 수인 (은색 귀+꼬리). 감정이 귀와 꼬리에 다 드러남. 기쁘면 꼬리 흔들리고 긴장하면 귀 납작. 후각 극강, 사람의 감정 냄새를 맡는다"><span>🐺 늑대 수인</span></label>
-            <label class="pb-radio"><input type="radio" name="species" value="고양이 수인 (검은 귀+꼬리). 도도하고 경계심 많음. 밤눈이 밝고 발소리가 없다"><span>🐱 고양이 수인</span></label>
-            <label class="pb-radio"><input type="radio" name="species" value="여우 수인 (붉은 귀+꼬리). 둔갑 능력. 꼬리가 감정 상태를 표시한다"><span>🦊 여우 수인</span></label>
-            <label class="pb-radio"><input type="radio" name="species" value="토끼 수인 (하얀 귀+꼬리). 귀여운 외모, 점프력 뛰어남. 약해 보이지만 민첩"><span>🐰 토끼 수인</span></label>
-            <label class="pb-radio"><input type="radio" name="species" value="매 수인 (등에 날개). 하늘을 날 수 있다. 시력 극강, 정찰병 자격"><span>🦅 매 수인</span></label>
-            <label class="pb-radio"><input type="radio" name="species" value="용족 (이마에 작은 뿔). 피 속에 용의 힘이 있어 불을 다룰 수 있다. 전설 속 존재"><span>🐉 용족</span></label>
-            <label class="pb-radio"><input type="radio" name="species" value="구미호 (아홉 꼬리). 둔갑 능력. 영물 취급"><span>🍥 구미호</span></label>
-          </div>
-        </div>
-
-        <!-- 능력/특기 (다중선택) -->
-        <div class="pb-group">
-          <label class="pb-label">✧ 능력/특기 <span style="font-size:10px;color:var(--text-dim);">(여러 개 선택 가능)</span></label>
-          <div class="pb-check-group">
-            <label class="pb-check"><input type="checkbox" name="skill" value="의학/약초 지식. 아쉬의 제자로 활약 가능"><span>⚕️ 의학/약초</span></label>
-            <label class="pb-check"><input type="checkbox" name="skill" value="뛰어난 요리 실력. 현대 레시피로 부족민 충격"><span>🍳 요리</span></label>
-            <label class="pb-check"><input type="checkbox" name="skill" value="무술/격투 실력. 타르와 사냥에서 실력 겨룸"><span>💪 전투</span></label>
-            <label class="pb-check"><input type="checkbox" name="skill" value="노래/음악 재능. 모닥불 앞에서 부족을 홀림"><span>🎤 노래</span></label>
-            <label class="pb-check"><input type="checkbox" name="skill" value="상상력 풍부. 이야기 만들기 특기. 하얀 할머니 후계자"><span>📖 이야기꾼</span></label>
-            <label class="pb-check"><input type="checkbox" name="skill" value="고고학/역사 지식. 유적에 대한 이해가 깊다"><span>🏛 유적 해독</span></label>
-            <label class="pb-check"><input type="checkbox" name="skill" value="교역/흥정 재능. 나기와 협상의 라이벌"><span>💰 교역</span></label>
-            <label class="pb-check"><input type="checkbox" name="skill" value="손재주 좋음. 장신구/도구 제작 가능"><span>🪡 손재주</span></label>
-          </div>
-        </div>
-
-        <!-- 성격 -->
-        <div class="pb-group">
-          <label class="pb-label">✧ 성격 <span style="font-size:10px;color:var(--text-dim);">(여러 개 선택 가능)</span></label>
-          <div class="pb-check-group">
-            <label class="pb-check"><input type="checkbox" name="personality" value="당찬 성격"><span>😤 당찬</span></label>
-            <label class="pb-check"><input type="checkbox" name="personality" value="순수한 성격"><span>🌷 순수</span></label>
-            <label class="pb-check"><input type="checkbox" name="personality" value="차가운 성격"><span>❄️ 차가운</span></label>
-            <label class="pb-check"><input type="checkbox" name="personality" value="능글맞은 성격"><span>😏 능글</span></label>
-            <label class="pb-check"><input type="checkbox" name="personality" value="소심한 성격"><span>🫣 소심</span></label>
-            <label class="pb-check"><input type="checkbox" name="personality" value="허당 기질"><span>🤭 허당</span></label>
-            <label class="pb-check"><input type="checkbox" name="personality" value="똑똑하고 영리함"><span>🧠 영리</span></label>
-            <label class="pb-check"><input type="checkbox" name="personality" value="호기심 폭발"><span>👀 호기심</span></label>
-          </div>
-        </div>
-
-        <!-- 자유 입력 -->
-        <div class="pb-group">
-          <label class="pb-label">✧ 추가 설정 <span style="font-size:10px;color:var(--text-dim);">(자유 입력, 선택)</span></label>
-          <textarea id="pb-extra" class="pb-input pb-textarea" placeholder="외모, 말버릇, 과거 등 자유롭게..."></textarea>
-        </div>
-
-        <!-- 생성 버튼 -->
-        <button class="pb-generate" onclick="generatePersona()">⊹ 페르소나 생성 ⊹</button>
-
-        <!-- 결과 -->
-        <div id="pb-result" class="pb-result" style="display:none;">
-          <div class="pb-result-label">✨ 생성된 페르소나</div>
-          <pre id="pb-result-text" class="pb-result-text"></pre>
-          <button class="pb-copy" onclick="copyGenerated()">📋 복사하기</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Guide -->
-    <div class="guide-section">
-      <div class="section-header">
-        <h2>⊹ 부족 생활 가이드 ⊹</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-      <div class="guide-list">
-        <div class="guide-item"><span class="gi-icon">🤝</span><span class="gi-label">손잡기</span> 부족 앞에서 잡으면 구애 선언</div>
-        <div class="guide-item"><span class="gi-icon">🔥</span><span class="gi-label">모닥불</span> 캠프의 심장. 꺼지면 안 됩니다</div>
-        <div class="guide-item"><span class="gi-icon">🦴</span><span class="gi-label">사냥감</span> 첫 부위는 공동 몫. 혼자 먹으면 추방</div>
-        <div class="guide-item"><span class="gi-icon">👁️</span><span class="gi-label">이방인</span> 족장이 이름 부를 때까지 부족민이 아닙니다</div>
-        <div class="guide-item"><span class="gi-icon">💍</span><span class="gi-label">짝의식</span> 일 년에 한 번 봄에, 손잡고 불 앞에 서면 끝</div>
-        <div class="guide-item"><span class="gi-icon">🏕</span><span class="gi-label">이동</span> 계절마다 캠프를 옮깁니다</div>
-        <div class="guide-item"><span class="gi-icon">🤰</span><span class="gi-label">임신</span> 부족 최대의 축복. 피임은 약초로 가능</div>
-      </div>
-    </div>
-
-    <!-- 계절행사 -->
-    <div class="info-section">
-      <div class="section-header">
-        <h2>⊹ 계절 행사 ⊹</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-      <div class="info-card">
-        <h3><span class="icon">🌸</span>봄 · 짝의식</h3>
-        <p>만 열아홉을 넘긴 자들이 짝의 손을 잡고 불 앞에 서는 밤.<br>부족에서 가장 신성한 밤입니다. 약초 채집, 초원 탐험도 함께해요.</p>
-      </div>
-      <div class="info-card">
-        <h3><span class="icon">🦌</span>여름 · 대사냥</h3>
-        <p>부족 전체가 며칠간 초원을 대이동하며 <span class="hl">거대 변이동물</span>을 쫓는 시즌이에요.<br>사냥 실력으로 서열이 결정되고, 잡은 사냥감은 부족 축제로 이어집니다.<br>타르가 빛나는 계절이에요.</p>
-      </div>
-      <div class="info-card">
-        <h3><span class="icon">🏛</span>가을 · 카자르 방문</h3>
-        <p>이웃 부족 카자르와의 대규모 교역이 열려요.<br>나기와 바자르 교역을 가거나, 아쉬 따라 이렌을 만나러 가거나 — <span class="hl">제이가 접근하면 나기 반응</span>을 보는 재미도 있답니다.<br>다른 부족 문화도 체험해보세요!</p>
-      </div>
-      <div class="info-card">
-        <h3><span class="icon">🔥</span>겨울 · 불의 밤</h3>
-        <p>겨울 가장 긴 밤에 부족 전체가 모닥불 앞에 모이는 아쉬 주관 의식이에요.<br>한 해 동안 감사한 것, 버리고 싶은 것을 말하며 <span class="hl">평소 못 했던 말, 숨겨둔 감정</span>을 털어놓는 시간이랍니다.<br>과거 이야기가 나올 수도 있어요...</p>
-      </div>
-    </div>
-
-    <!-- Commands -->
-    <div class="cmd-section">
-      <div class="section-header">
-        <h2>⊹ 명령어 ⊹</h2>
-        <div class="line"><span>◆</span></div>
-      </div>
-      <div class="cmd-card"><span class="cmd-name">!이벤트</span><span class="cmd-desc">랜덤 가챠! 사냥, 교역, 짐승 습격, 라이벌 견제, 옛 문명 유물 발견 등.</span></div>
-      <div class="cmd-card"><span class="cmd-name">!모닥불</span><span class="cmd-desc">현대판 투란 익명 커뮤. 당신의 이야기를 부족민이 목격한 소문으로 풀어줍니다. (🔞포함)</span></div>
-      <div class="cmd-card"><span class="cmd-name">!장터</span><span class="cmd-desc">바자르 교역(상점) 목록. 번호로 구매 후 선물 및 사용 가능.</span></div>
-      <div class="cmd-card"><span class="cmd-name">!가계부</span><span class="cmd-desc">각 캐릭터들이 사용한 가계부 기록. 예) !가계부 나기</span></div>
-      <div class="cmd-card"><span class="cmd-name">!요약</span><span class="cmd-desc">최근 30턴 서사 정리. (AI 기억력 높이기)</span></div>
-      <div class="cmd-card"><span class="cmd-name">!점검</span><span class="cmd-desc">AI 전체 오류 점검하기.</span></div>
-    </div>
-
-    <!-- CTA -->
-    <div style="padding:12px 18px 20px;">
-      <a href="https://share.crack.wrtn.ai/ubcdyhc" target="_blank" style="display:block;text-align:center;padding:17px;background:linear-gradient(135deg,var(--amber-dim),var(--fire));border-radius:4px;color:var(--text-bright);font-size:14.5px;font-weight:600;letter-spacing:3px;text-decoration:none;box-shadow:0 4px 20px rgba(212,145,58,0.15);">
-        ⊹ 초원에 떨어지기 ⊹
-      </a>
-    </div>
-
-    <!-- Credit -->
-    <div style="text-align:center;padding:20px 18px 40px;">
-      <p style="font-size:10.5px;color:var(--text-dim);letter-spacing:3px;">@현생오프</p>
-    </div>
-  </div>
-
-</div>
-
-<!-- BGM Popup -->
-<div id="bgm-popup" style="display:none;position:fixed;bottom:80px;right:12px;z-index:9999;background:var(--bg-card);border:1px solid var(--amber-dim);border-radius:6px;width:260px;box-shadow:0 8px 32px rgba(0,0,0,.8)">
-  <div id="bgm-header" style="background:var(--amber-dim);padding:5px 10px;display:flex;justify-content:space-between;align-items:center;border-radius:5px 5px 0 0;cursor:grab;user-select:none">
-    <span style="font-size:11px;letter-spacing:.1em;color:var(--bg-deep);font-weight:600">♪ BGM</span>
-    <div style="display:flex;gap:6px;align-items:center">
-      <button onclick="minimizeBGM()" title="최소화" style="background:none;border:none;color:var(--bg-deep);font-size:14px;cursor:pointer;padding:0 4px;line-height:1">—</button>
-      <button onclick="closeBGM()" title="닫기" style="background:none;border:none;color:var(--bg-deep);font-size:14px;cursor:pointer;padding:0 4px;line-height:1">✕</button>
-    </div>
-  </div>
-  <div id="bgm-body" style="padding:8px">
-    <div id="bgm-player"></div>
-  </div>
-</div>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lb-close" onclick="closeLightbox()">✕</button>
-  <img id="lb-img" src="" alt="확대 이미지">
-</div>
-
-<nav class="bottom-nav">
-  <button class="nav-btn active" onclick="showSection('sec-world', this)">세계관</button>
-  <button class="nav-btn" onclick="showSection('sec-char', this)">캐릭터</button>
-  <button class="nav-btn" onclick="showSection('sec-start', this)">시작</button>
-</nav>
 
 <script>
-function generatePersona() {
-  var name = document.getElementById('pb-name').value.trim() || '[자유 설정]';
-  var age = document.getElementById('pb-age').value || '21';
-  var gender = document.querySelector('input[name="gender"]:checked').value;
-  var origin = document.querySelector('input[name="origin"]:checked').value;
-  var species = document.querySelector('input[name="species"]:checked').value;
-  var skills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(function(c){return c.value;});
-  var personalities = Array.from(document.querySelectorAll('input[name="personality"]:checked')).map(function(c){return c.value;});
-  var extra = document.getElementById('pb-extra').value.trim();
-
-  var result = '이름: ' + name + '\n';
-  result += '나이: ' + age + '세\n';
-  result += '성별: ' + gender + '\n';
-
-  if (species !== '인간') {
-    result += '종족: ' + species + '\n';
+  const data = {
+    이름_여: ['김다현', '서지안', '이하린', '윤소이', '강유나', '박세린', '최아인', '한지유', '정수아', '오채원', '임가을', '신예린', '문해솔', '조은비', '백서윤'],
+    이름_남: ['김도윤', '서재현', '이준혁', '윤시환', '강민서', '박지호', '최태우', '한이안', '정우진', '오해성', '임도한', '신유겸', '문하준', '조은성', '백시혁'],
+    
+    나이: ['22세', '23세', '24세', '25세', '26세', '27세', '28세', '29세', '30세', '31세'],
+    
+    머리: ['검은 단발', '긴 흑발', '갈색 단발', '갈색 긴머리', '은발 단발', '백발 긴머리', '붉은 단발', '금발 긴머리', '잿빛 단발', '검은 포니테일'],
+    눈: ['갈색 눈', '청회색 눈', '녹안', '흑안', '호박색 눈', '회안', '진한 갈색 눈', '연갈색 눈'],
+    체형: ['평범한 키', '작고 마른 체형', '키 크고 마름', '평범한 체형', '약간 마른 편', '단단한 체형'],
+    
+    문양위치: [
+      '왼쪽 쇄골 아래', '오른쪽 손목 안쪽', '등 중앙',
+      '왼쪽 허벅지 안쪽', '목 뒤', '오른쪽 발목',
+      '왼쪽 어깨 뒤', '명치 위', '오른쪽 갈비뼈 옆',
+      '왼쪽 손등'
+    ],
+    
+    배경: [
+      '깨어보니 잿빛지대 한복판',
+      '맨발에 옷엔 정체불명의 핏자국',
+      '여관 침대에서 눈을 떴다',
+      '잿빛선 객차에 혼자 앉아있었다',
+      '폐허 마을 입구에 쓰러져 있었다',
+      '봉인일 광장 한가운데로 떨어졌다',
+      '손에 누구 피인지 모를 자국',
+      '잿빛숲 외곽에서 정신이 들었다',
+      '기억은 없고 옷에 재만 묻어있다',
+      '꿈처럼 떨어졌다·하늘에서 잿가루'
+    ],
+    
+    성격: [
+      'INTP·관찰형·신중함', 'ENFP·낙천적·호기심', 'ISTJ·계산적·차분함',
+      'ENTP·도발적·재치', 'INFJ·직관·예민함', 'ESFP·즉흥적·쾌활',
+      'ISFJ·온화·헌신', 'ENTJ·주도적·강단', 'INFP·이상주의·섬세',
+      'ESTP·대담함·즉흥', 'INTJ·전략적·독립적', 'ESFJ·다정·사교적',
+      'ISTP·실용적·과묵', 'ENFJ·공감·리더십', 'ISFP·감성적·자유로움',
+      'ESTJ·체계적·책임감'
+    ]
+  };
+  
+  let selectedGender = 'random';
+  
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
-
-  result += '출신: ' + origin + '\n';
-
-  if (personalities.length > 0) {
-    result += '성격: ' + personalities.join(', ') + '\n';
+  
+  function getGender() {
+    if (selectedGender === 'random') {
+      return Math.random() < 0.5 ? '여' : '남';
+    }
+    return selectedGender;
   }
-
-  if (skills.length > 0) {
-    result += '특기: ' + skills.join(' / ') + '\n';
+  
+  function rollField(field) {
+    let value = '';
+    switch(field) {
+      case 'name':
+        const g = getGender();
+        value = g === '여' ? pick(data.이름_여) : pick(data.이름_남);
+        break;
+      case 'age':
+        value = pick(data.나이);
+        break;
+      case 'appearance':
+        value = `${pick(data.머리)}·${pick(data.눈)}·${pick(data.체형)}`;
+        break;
+      case 'mark':
+        value = pick(data.문양위치);
+        break;
+      case 'background':
+        value = pick(data.배경);
+        break;
+      case 'personality':
+        value = pick(data.성격);
+        break;
+    }
+    document.getElementById(field).value = value;
   }
-
-  if (extra) {
-    result += '추가: ' + extra + '\n';
+  
+  function rollAll() {
+    rollField('name');
+    rollField('age');
+    rollField('appearance');
+    rollField('mark');
+    rollField('background');
+    rollField('personality');
   }
-
-  if (parseInt(age) < 19) {
-    result += '\n※ 19세 미만: 짝의식/성인의식 참여 불가. 스킨십은 손잡기/포옹까지.';
+  
+  function copyText() {
+    const name = document.getElementById('name').value || '???';
+    const age = document.getElementById('age').value || '???';
+    const appearance = document.getElementById('appearance').value || '???';
+    const mark = document.getElementById('mark').value || '???';
+    const background = document.getElementById('background').value || '???';
+    const personality = document.getElementById('personality').value || '???';
+    
+    const gender = selectedGender === 'random' ? '랜덤' : selectedGender;
+    
+    const text = `[페르소나]
+이름: ${name}
+나이: ${age}
+성별: ${gender}
+외형: ${appearance}
+문양 위치: ${mark}
+배경: ${background}
+성격: ${personality}`;
+    
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      const originalText = btn.textContent;
+      btn.textContent = '✓ 복사됨!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 1500);
+    });
   }
-
-  document.getElementById('pb-result-text').textContent = result;
-  document.getElementById('pb-result').style.display = 'block';
-
-  // 결과 영역으로 스크롤
-  setTimeout(function() {
-    document.getElementById('pb-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 100);
-}
-
-function copyGenerated() {
-  var text = document.getElementById('pb-result-text').textContent;
-  var btn = document.querySelector('.pb-copy');
-  navigator.clipboard.writeText(text).then(function() {
-    btn.textContent = '✓ 복사됨!';
-    btn.classList.add('copied');
-    setTimeout(function(){
-      btn.textContent = '📋 복사하기';
-      btn.classList.remove('copied');
-    }, 2000);
-  }).catch(function() {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent = '✓ 복사됨!';
-    btn.classList.add('copied');
-    setTimeout(function(){
-      btn.textContent = '📋 복사하기';
-      btn.classList.remove('copied');
-    }, 2000);
+  
+  document.querySelectorAll('.gender-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedGender = btn.dataset.gender;
+    });
   });
-}
-
-function copyPersona(el) {
-  var text = el.getAttribute('data-persona');
-  navigator.clipboard.writeText(text).then(function() {
-    el.classList.add('copied');
-    setTimeout(function(){ el.classList.remove('copied'); }, 2000);
-  }).catch(function() {
-    // Fallback
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    el.classList.add('copied');
-    setTimeout(function(){ el.classList.remove('copied'); }, 2000);
+  
+  document.querySelectorAll('.roll-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      rollField(btn.dataset.roll);
+    });
   });
-}
-
-function showSection(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-function openLightbox(src) {
-  document.getElementById('lb-img').src = src;
-  document.getElementById('lightbox').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-/* BGM */
-var bgmPlayer=null,bgmReady=false,bgmMinimized=false;
-function loadYTApi(){
-  if(window.YT&&window.YT.Player){initBGMPlayer();return;}
-  if(document.getElementById('yt-api-script'))return;
-  var s=document.createElement('script');
-  s.id='yt-api-script';s.src='https://www.youtube.com/iframe_api';
-  document.head.appendChild(s);
-}
-window.onYouTubeIframeAPIReady=function(){initBGMPlayer();};
-function initBGMPlayer(){
-  if(bgmPlayer)return;
-  bgmPlayer=new YT.Player('bgm-player',{
-    height:'140',width:'100%',
-    videoId:'p7_jn-TIoqI',
-    playerVars:{autoplay:1,controls:1,modestbranding:1,rel:0,fs:0},
-    events:{onReady:function(e){bgmReady=true;e.target.playVideo();}}
-  });
-}
-function openBGM(){
-  document.getElementById('bgm-popup').style.display='block';
-  setTimeout(function(){loadYTApi();},50);
-}
-function minimizeBGM(){
-  var body=document.getElementById('bgm-body');
-  var popup=document.getElementById('bgm-popup');
-  bgmMinimized=!bgmMinimized;
-  body.style.display=bgmMinimized?'none':'block';
-  popup.style.width=bgmMinimized?'140px':'260px';
-}
-function closeBGM(){
-  document.getElementById('bgm-popup').style.display='none';
-  if(bgmPlayer&&bgmReady)bgmPlayer.pauseVideo();
-}
-(function(){
-  var popup=document.getElementById('bgm-popup');
-  var header=document.getElementById('bgm-header');
-  if(!header)return;
-  var dragging=false,ox=0,oy=0;
-  header.addEventListener('mousedown',function(e){
-    dragging=true;ox=e.clientX-popup.getBoundingClientRect().left;oy=e.clientY-popup.getBoundingClientRect().top;
-    popup.style.right='auto';popup.style.bottom='auto';header.style.cursor='grabbing';
-  });
-  document.addEventListener('mousemove',function(e){if(!dragging)return;popup.style.left=(e.clientX-ox)+'px';popup.style.top=(e.clientY-oy)+'px';});
-  document.addEventListener('mouseup',function(){dragging=false;if(header)header.style.cursor='grab';});
-  header.addEventListener('touchstart',function(e){
-    var t=e.touches[0];dragging=true;ox=t.clientX-popup.getBoundingClientRect().left;oy=t.clientY-popup.getBoundingClientRect().top;
-    popup.style.right='auto';popup.style.bottom='auto';
-  });
-  document.addEventListener('touchmove',function(e){if(!dragging)return;var t=e.touches[0];popup.style.left=(t.clientX-ox)+'px';popup.style.top=(t.clientY-oy)+'px';});
-  document.addEventListener('touchend',function(){dragging=false;});
-})();
+  
+  document.getElementById('rollAllBtn').addEventListener('click', rollAll);
+  document.getElementById('copyBtn').addEventListener('click', copyText);
+  
+  rollAll();
 </script>
 </body>
 </html>
